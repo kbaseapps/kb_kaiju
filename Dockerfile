@@ -16,8 +16,11 @@ RUN pip install coverage
 
 # Install xvfb for matplotlib pdfs
 #    apt-get -y install xvfb
-RUN apt-get update && \
-    apt-get -y install xvfb python-qt4
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN sed -i 's/\(.*DST_Root_CA_X3.crt\)/!\1/' /etc/ca-certificates.conf
+RUN update-ca-certificates
+RUN apt-get -y install xvfb python-qt4
 
 
 # For kaiju bin

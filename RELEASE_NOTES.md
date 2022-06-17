@@ -1,3 +1,8 @@
+### Version 1.2.1
+__Changes__
+- update root certificates so that refdata downloads correctly see:
+    https://letsencrypt.org/docs/dst-root-ca-x3-expiration-september-2021/
+
 ### Version 1.2.0
 __Changes__
 - updated to early 2021 database releases (range of dates)
