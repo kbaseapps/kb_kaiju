@@ -512,3 +512,55 @@ class kb_kaijuTest(unittest.TestCase):
         self._run_test_3_for_db ('fungi')
         pass
     
+    
+    ### Test 4: SE lib object with weird readIDs
+    #
+    # Uncomment to skip this test
+    # HIDE @unittest.skip("skipped test_4_kaiju_SE_lib_weird_readIDs")
+    def test_4_kaiju_SE_lib_weird_readIDs(self):
+        self._print_test_name('test_4_kaiju_SE_lib_weird_readIDs')
+
+        # run kaiju
+        #input_refs = [self.SE_reads_refs[0]]
+        input_refs = [self.SE_reads_refs[2]]
+        #output_biom_name = 'test_kb_kaiju_test2.BIOM'
+        params = {
+            'workspace_name':            self.ws_info[1],
+            'input_refs':                input_refs,
+            #'output_biom_name':          output_biom_name,
+            'tax_levels':                ['phylum','genus'],
+            #'tax_levels':                ['phylum'],
+            'db_type':                   'refseq',
+            #'filter_percent':            1,
+            'filter_percent':            0.5,
+            #'subsample_percent':         100,
+            'subsample_percent':         40,
+            #'subsample_replicates':      1,
+            'subsample_replicates':      1,
+            'subsample_seed':            1,
+            'seg_filter':                1,
+            'min_match_length':          11,
+            'greedy_run_mode':           1,
+            'greedy_allowed_mismatches': 5,
+            'greedy_min_match_score':    75,
+            'greedy_max_e_value':        0.05,
+            'filter_unclassified':       1,
+            'full_tax_path':             0,
+            'sort_taxa_by':              'totals'
+        }
+        result = self.getImpl().run_kaiju(self.getContext(), params)[0]
+
+        pprint('End to end test result:')
+        pprint(result)
+
+        self.assertIn('report_name', result)
+        self.assertIn('report_ref', result)
+
+        # make sure the report was created and includes the HTML report and download links
+        #rep = self.getWsClient().get_objects2({'objects': [{'ref': result['report_ref']}]})['data'][0]['data']
+        #self.assertEquals(rep['direct_html_link_index'], 0)
+        #self.assertEquals(len(rep['file_links']), 2)
+        #self.assertEquals(len(rep['html_links']), 1)
+        #self.assertEquals(rep['html_links'][0]['name'], 'report.html')
+        pass
+

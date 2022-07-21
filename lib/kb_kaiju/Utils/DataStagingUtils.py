@@ -298,7 +298,9 @@ class DataStagingUtils(object):
                         read_id = line.rstrip('\n')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
                         # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
-                        read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        if read_id.count('.') > 1:
+                            read_id = ''.join(read_id.split('.',read_id.count('.')-1))
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
                         fwd_ids[read_id] = True
 
@@ -322,7 +324,9 @@ class DataStagingUtils(object):
                         read_id = line.rstrip('\n')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
                         # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
-                        read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        if read_id.count('.') > 1:
+                            read_id = ''.join(read_id.split('.',read_id.count('.')-1))
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
                         if fwd_ids.get(read_id, False):
                             paired_ids[read_id] = True
@@ -392,7 +396,9 @@ class DataStagingUtils(object):
                         read_id = line.rstrip('\n')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
                         # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
-                        read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        if read_id.count('.') > 1:
+                            read_id = ''.join(read_id.split('.',read_id.count('.')-1))
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
                         last_read_id = read_id
                         try:
@@ -455,7 +461,9 @@ class DataStagingUtils(object):
                         read_id = line.rstrip('\n')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
                         # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
-                        read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        if read_id.count('.') > 1:
+                            read_id = ''.join(read_id.split('.',read_id.count('.')-1))
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
                         last_read_id = read_id
                         try:
@@ -553,9 +561,7 @@ class DataStagingUtils(object):
                             raise ValueError ("badly formatted rec line: '"+line+"'")
                         read_id = line.rstrip('\n')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
-                        # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
-                        read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
-                        read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
+
                         if read_id in paired_ids:
                             raise ValueError ("repeat read_id: "+read_id)
                         paired_ids[read_id] = True
@@ -628,9 +634,7 @@ class DataStagingUtils(object):
                             rec_buf = []
                         read_id = line.rstrip('\n')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
-                        # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
-                        read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
-                        read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
+
                         last_read_id = read_id
                     rec_buf.append(line)
                 # last rec
