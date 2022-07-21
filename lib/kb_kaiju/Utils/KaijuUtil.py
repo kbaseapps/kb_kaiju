@@ -569,15 +569,19 @@ class KaijuUtil:
             command_list.append('-m')
             command_list.append(str(options.get('min_match_length')))
         if int(options.get('greedy_run_mode')) == 1:
-            command_list.append('-a')
-            command_list.append('greedy')
+            # greedy is now default and now breaks if requested explicitly
+            #command_list.append('-a')
+            #command_list.append('greedy')
             if options.get('greedy_allowed_mismatches'):
                 command_list.append('-e')
                 command_list.append(str(options.get('greedy_allowed_mismatches')))
             if options.get('greedy_min_match_score'):
                 command_list.append('-s')
                 command_list.append(str(options.get('greedy_min_match_score')))
-
+        else:
+            command_list.append('-a')
+            command_list.append('mem')
+                
         if options.get('threads'):
             command_list.append('-z')
             command_list.append(str(options.get('threads')))

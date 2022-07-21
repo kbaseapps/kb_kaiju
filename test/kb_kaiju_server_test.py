@@ -139,7 +139,7 @@ class kb_kaijuTest(unittest.TestCase):
         # Upload Single End Libraries
         #
         cls.SE_reads_refs = []
-        for basename in ['seven_species_nonuniform_10K-PE_reads_', 'seven_species_nonuniform_05K-PE_reads_']:
+        for basename in ['seven_species_nonuniform_10K-PE_reads_', 'seven_species_nonuniform_05K-PE_reads_', 'SE_weird_readIDs_']:
             fwd_filename = basename+'fwd-0.fastq'
             #rev_filename = basename+'rev-0.fastq'
             reads_objname = basename+'.SElib'
@@ -179,6 +179,61 @@ class kb_kaijuTest(unittest.TestCase):
             cls.SE_reads_refs.append(reads_ref)
             pprint('Saved SE Lib Reads: ' + reads_ref)
 
+            
+    def _print_test_name (self, test_name):
+        print ("\n"+('='*(10+len(test_name))))
+        print ("RUNNING "+test_name+"()")
+        print (('='*(10+len(test_name)))+"\n")
+        return
+
+
+    def _run_test_3_for_db (self, db_type):
+        # run kaiju
+        #input_refs = [self.PE_reads_refs[0]]
+        input_refs = [self.PE_reads_refs[0], self.PE_reads_refs[1]]
+        #output_biom_name = 'test_kb_kaiju_test1.BIOM'
+        params = {
+            'workspace_name':            self.ws_info[1],
+            'input_refs':                input_refs,
+            #'output_biom_name':          output_biom_name,
+            'tax_levels':                ['phylum','genus'],
+            #'tax_levels':                ['phylum'],
+            'db_type':                   db_type,
+            #'filter_percent':            1,
+            'filter_percent':            0.5,
+            #'subsample_percent':         100,
+            'subsample_percent':         10,
+            #'subsample_replicates':      1,
+            'subsample_replicates':      1,
+            'subsample_seed':            1,
+            'seg_filter':                1,
+            'min_match_length':          11,
+            'greedy_run_mode':           1,
+            'greedy_allowed_mismatches': 5,
+            'greedy_min_match_score':    75,
+            'greedy_max_e_value':        0.05,
+            'filter_unclassified':       1,
+            'full_tax_path':             0,
+            'sort_taxa_by':              'totals'
+        }
+        result = self.getImpl().run_kaiju(self.getContext(), params)[0]
+
+        pprint('End to end test result:')
+        pprint(result)
+
+        self.assertIn('report_name', result)
+        self.assertIn('report_ref', result)
+
+        # make sure the report was created and includes the HTML report and download links
+        #rep = self.getWsClient().get_objects2({'objects': [{'ref': result['report_ref']}]})['data'][0]['data']
+        #self.assertEquals(rep['direct_html_link_index'], 0)
+        #self.assertEquals(len(rep['file_links']), 2)
+        #self.assertEquals(len(rep['html_links']), 1)
+        #self.assertEquals(rep['html_links'][0]['name'], 'report.html')
+
+        return True
+    
+            
     # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
 
 
@@ -187,10 +242,7 @@ class kb_kaijuTest(unittest.TestCase):
     # Uncomment to skip this test
     # HIDE @unittest.skip("skipped test_1_kaiju_PE_lib")
     def test_1_kaiju_PE_lib(self):
-        method_name = 'test_1_kaiju_PE_lib'
-        print ("\n"+('='*(10+len(method_name))))
-        print ("RUNNING "+method_name+"()")
-        print (('='*(10+len(method_name)))+"\n")
+        self._print_test_name("test_1_kaiju_PE_lib")
 
         # run kaiju
         #input_refs = [self.PE_reads_refs[0]]
@@ -237,15 +289,64 @@ class kb_kaijuTest(unittest.TestCase):
         pass
 
 
+    ### Test 1b: PE lib objects - mem mode
+    #
+    # Uncomment to skip this test
+    # HIDE @unittest.skip("skipped test_1b_kaiju_PE_lib")
+    def test_1b_kaiju_PE_lib_mem_mode(self):
+        self._print_test_name('test_1b_kaiju_PE_lib_mem_mode')
+
+        # run kaiju
+        #input_refs = [self.PE_reads_refs[0]]
+        input_refs = [self.PE_reads_refs[0], self.PE_reads_refs[1]]
+        #output_biom_name = 'test_kb_kaiju_test1.BIOM'
+        params = {
+            'workspace_name':            self.ws_info[1],
+            'input_refs':                input_refs,
+            #'output_biom_name':          output_biom_name,
+            'tax_levels':                ['phylum','genus'],
+            #'tax_levels':                ['phylum'],
+            'db_type':                   'refseq',
+            #'filter_percent':            1,
+            'filter_percent':            0.5,
+            #'subsample_percent':         100,
+            'subsample_percent':         10,
+            #'subsample_replicates':      1,
+            'subsample_replicates':      2,
+            'subsample_seed':            1,
+            'seg_filter':                1,
+            'min_match_length':          11,
+            'greedy_run_mode':           0,
+            'greedy_allowed_mismatches': 5,
+            'greedy_min_match_score':    75,
+            'greedy_max_e_value':        0.05,
+            'filter_unclassified':       1,
+            'full_tax_path':             0,
+            'sort_taxa_by':              'totals'
+        }
+        result = self.getImpl().run_kaiju(self.getContext(), params)[0]
+
+        pprint('End to end test result:')
+        pprint(result)
+
+        self.assertIn('report_name', result)
+        self.assertIn('report_ref', result)
+
+        # make sure the report was created and includes the HTML report and download links
+        #rep = self.getWsClient().get_objects2({'objects': [{'ref': result['report_ref']}]})['data'][0]['data']
+        #self.assertEquals(rep['direct_html_link_index'], 0)
+        #self.assertEquals(len(rep['file_links']), 2)
+        #self.assertEquals(len(rep['html_links']), 1)
+        #self.assertEquals(rep['html_links'][0]['name'], 'report.html')
+        pass
+
+
     ### Test 2: SE lib object
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_1_kaiju_SE_lib")
+    # HIDE @unittest.skip("skipped test_2_kaiju_SE_lib")
     def test_2_kaiju_SE_lib(self):
-        method_name = 'test_2_kaiju_SE_lib'
-        print ("\n"+('='*(10+len(method_name))))
-        print ("RUNNING "+method_name+"()")
-        print (('='*(10+len(method_name)))+"\n")
+        self._print_test_name('test_2_kaiju_SE_lib')
 
         # run kaiju
         #input_refs = [self.SE_reads_refs[0]]
@@ -291,27 +392,25 @@ class kb_kaijuTest(unittest.TestCase):
         #self.assertEquals(rep['html_links'][0]['name'], 'report.html')
         pass
 
-    ### Test 3: PE lib objects with newly added database example (one of fungi, plasmids, rvdb, and viruses)
+
+    ### Test 2b: SE lib object - mem mode
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_3_kaiju_PE_lib_new_dbs")
-    def test_3_kaiju_PE_lib_new_dbs(self):
-        method_name = 'test_3_kaiju_PE_lib_new_dbs'
-        print ("\n"+('='*(10+len(method_name))))
-        print ("RUNNING "+method_name+"()")
-        print (('='*(10+len(method_name)))+"\n")
+    # HIDE @unittest.skip("skipped test_2b_kaiju_SE_lib_mem_mode")
+    def test_2b_kaiju_SE_lib_mem_mode(self):
+        self._print_test_name('test_2b_kaiju_SE_lib_mem_mode')
 
         # run kaiju
-        #input_refs = [self.PE_reads_refs[0]]
-        input_refs = [self.PE_reads_refs[0], self.PE_reads_refs[1]]
-        #output_biom_name = 'test_kb_kaiju_test1.BIOM'
+        #input_refs = [self.SE_reads_refs[0]]
+        input_refs = [self.SE_reads_refs[0], self.SE_reads_refs[1]]
+        #output_biom_name = 'test_kb_kaiju_test2.BIOM'
         params = {
             'workspace_name':            self.ws_info[1],
             'input_refs':                input_refs,
             #'output_biom_name':          output_biom_name,
             'tax_levels':                ['phylum','genus'],
             #'tax_levels':                ['phylum'],
-            'db_type':                   'plasmids',
+            'db_type':                   'refseq',
             #'filter_percent':            1,
             'filter_percent':            0.5,
             #'subsample_percent':         100,
@@ -321,7 +420,7 @@ class kb_kaijuTest(unittest.TestCase):
             'subsample_seed':            1,
             'seg_filter':                1,
             'min_match_length':          11,
-            'greedy_run_mode':           1,
+            'greedy_run_mode':           0,
             'greedy_allowed_mismatches': 5,
             'greedy_min_match_score':    75,
             'greedy_max_e_value':        0.05,
@@ -344,3 +443,72 @@ class kb_kaijuTest(unittest.TestCase):
         #self.assertEquals(len(rep['html_links']), 1)
         #self.assertEquals(rep['html_links'][0]['name'], 'report.html')
         pass
+
+
+    #
+    # Refseq already tested above
+    #
+
+    ### Test 3a: PE lib objects with NR
+    #
+    # Uncomment to skip this test
+    @unittest.skip("skipped test_3a_kaiju_PE_lib_NR")
+    def test_3a_kaiju_PE_lib_NR(self):
+        self._print_test_name('test_3a_kaiju_PE_lib_NR')
+        self._run_test_3_for_db ('nr')  # FAILING (too big for memory?)
+        pass
+
+    ### Test 3b: PE lib objects with NR_EUK
+    #
+    # Uncomment to skip this test
+    @unittest.skip("skipped test_3b_kaiju_PE_lib_NR_EUK")
+    def test_3b_kaiju_PE_lib_NR_EUK(self):
+        self._print_test_name('test_3b_kaiju_PE_lib_NR_EUK')
+        self._run_test_3_for_db ('nr_euk')  # FAILING (too big for memory?)
+        pass
+
+    ### Test 3c: PE lib objects with PROGENOMES
+    #
+    # Uncomment to skip this test
+    # HIDE @unittest.skip("skipped test_3c_kaiju_PE_lib_PROGENOMES")
+    def test_3c_kaiju_PE_lib_PROGENOMES(self):
+        self._print_test_name('test_3c_kaiju_PE_lib_PROGENOMES')
+        self._run_test_3_for_db ('progenomes')
+        pass
+
+    ### Test 3d: PE lib objects with PLASMIDS
+    #
+    # Uncomment to skip this test
+    # HIDE @unittest.skip("skipped test_3d_kaiju_PE_lib_PLASMIDS")
+    def test_3d_kaiju_PE_lib_PLASMIDS(self):
+        self._print_test_name('test_3d_kaiju_PE_lib_PLASMIDS')
+        self._run_test_3_for_db ('plasmids')
+        pass
+
+    ### Test 3e: PE lib objects with RVDB
+    #
+    # Uncomment to skip this test
+    @unittest.skip("skipped test_3e_kaiju_PE_lib_aRVDB")
+    def test_3e_kaiju_PE_lib_RVDB(self):
+        self._print_test_name('test_3e_kaiju_PE_lib_RVDB')
+        self._run_test_3_for_db ('rvdb')   # needs correct test query data
+        pass
+
+    ### Test 3f: PE lib objects with VIRUSES
+    #
+    # Uncomment to skip this test
+    # HIDE @unittest.skip("skipped test_3f_kaiju_PE_lib_VIRUSES")
+    def test_3f_kaiju_PE_lib_VIRUSES(self):
+        self._print_test_name('test_3f_kaiju_PE_lib_VIRUSES')
+        self._run_test_3_for_db ('viruses')
+        pass
+
+    ### Test 3g: PE lib objects with FUNGI
+    #
+    # Uncomment to skip this test
+    # HIDE @unittest.skip("skipped test_3g_kaiju_PE_lib_FUNGI")
+    def test_3g_kaiju_PE_lib_FUNGI(self):
+        self._print_test_name('test_3g_kaiju_PE_lib_FUNGI')
+        self._run_test_3_for_db ('fungi')
+        pass
+    

@@ -1,3 +1,19 @@
+### Version 1.3.0
+__Changes__
+- updated Kaiju program to v1.9.0 (released 2022-05-12)
+1;95;0c- didn't update progenomes (ver is 2021-03-02)
+- updated nr_euk refdata to 2022-03-10
+- updated nr refdata to 2022-03-10
+- updated refseq to 2022-03-23
+- updated fungi to 2022-03-29
+- updated viruses to 2022-03-29
+- updated plasmids to 2022-04-10
+- updated rvdb to 2022-04-07
+- more careful handling of exceptional Read IDs in _random_subsample_reads()
+- set to current default of -e max_mismatches=3
+- set to current default of -s min_match_score=65
+- set to current default of -E max_e-value=0.01
+
 ### Version 1.2.0
 __Changes__
 - updated to early 2021 database releases (range of dates)

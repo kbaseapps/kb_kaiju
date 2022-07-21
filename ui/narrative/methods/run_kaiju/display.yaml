@@ -1,7 +1,7 @@
 #
 #  define display information
 #
-name: Classify Taxonomy of Metagenomic Reads with Kaiju - v1.7.4
+name: Classify Taxonomy of Metagenomic Reads with Kaiju - v1.9.0
 tooltip: |
 	Allows users to perform taxonomic classification of shotgun metagenomic read data with Kaiju.
 screenshots:
@@ -133,16 +133,16 @@ description : |
     </blockquote>
   </p>
 
-  <p>Kaiju offers at least four reference databases for classification, which are downloaded from the <a href="http://kaiju.binf.ku.dk/server">Kaiju webserver page</a> (last updated early 2021). The databases are:
+  <p>Kaiju offers at least four reference databases for classification, which are downloaded from the <a href="http://kaiju.binf.ku.dk/server">Kaiju webserver page</a> (last updated early 2022). The databases are:
     <ul>
-      <li><b>RefSeq Complete Genomes</b>: protein sequences from completely assembled bacterial, archaeal, and viral genomes from NCBI RefSeq. Updated: 26-Feb-2021.</li>
+      <li><b>RefSeq Complete Genomes</b>: protein sequences from completely assembled bacterial, archaeal, and viral genomes from NCBI RefSeq. Updated: 23-Mar-2022.</li>
       <li><b>proGenomes</b>: protein sequences from a representative set of genomes derived from NCBI RefSeq bacterial, archaeal, and viral genomes. Updated: 02-Mar-2021.</li>
-      <li><b>NCBI BLAST nr</b>: protein sequences from nr: Bacteria, Archaea, and Viruses. Updated: 26-Feb-2021.</li>
-      <li><b>NCBI BLAST nr+euk</b>: protein sequences from nr: Bacteria, Archaea, Viruses, Fungi and microbial eukaryotes. Updated: 24-Feb-2021.</li>
-      <li><b>Viruses</b>: protein sequences from a representative set of viral genomes. Updated: 24-Feb-2021.</li>
-      <li><b>Plasmids</b>: protein sequences from a representative set of plasmids. Updated: 05-Mar-2021.</li>
-      <li><b>Reference Viral DataBase (RVDB)</b>: protein sequences from the Reference Viral Database (RVDB). Updated: 05-Mar-2021.</li>
-      <li><b>Fungi</b>: protein sequences from a representative set of fungal genomes. Updated: 04-Mar-2021.</li>
+      <li><b>NCBI BLAST nr</b>: protein sequences from nr: Bacteria, Archaea, and Viruses. Updated: 10-Mar-2022.</li>
+      <li><b>NCBI BLAST nr+euk</b>: protein sequences from nr: Bacteria, Archaea, Viruses, Fungi and microbial eukaryotes. Updated: 10-Mar-2022.</li>
+      <li><b>Viruses</b>: protein sequences from a representative set of viral genomes. Updated: 29-Mar-2022.</li>
+      <li><b>Plasmids</b>: protein sequences from a representative set of plasmids. Updated: 10-Apr-2022.</li>
+      <li><b>Reference Viral DataBase (RVDB)</b>: protein sequences from the Reference Viral Database (RVDB). Updated: 07-Apr-2022.</li>
+      <li><b>Fungi</b>: protein sequences from a representative set of fungal genomes. Updated: 29-Mar-2022.</li>
 
     </ul>
   </p>

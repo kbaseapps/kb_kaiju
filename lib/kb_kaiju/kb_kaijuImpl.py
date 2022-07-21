@@ -30,7 +30,7 @@ Kaiju paper: Menzel, P. et al. (2016) Fast and sensitive taxonomic classificatio
 Krona paper: Ondov BD, Bergman NH, and Phillippy AM. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics. 2011 Sep 30; 12(1):385.
 
 Kaiju License:
-Copyright (c) 2015, 2016, 2017 Peter Menzel and Anders Krogh
+Copyright (c) 2015, 2016, 2017, 2018, 2019, 2020 Peter Menzel and Anders Krogh
 
 Kaiju is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -46,9 +46,9 @@ You should have received a copy of the GNU General Public License along with the
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "1.2.0"
+    VERSION = "1.2.1"
     GIT_URL = "https://github.com/kbaseapps/kb_kaiju"
-    GIT_COMMIT_HASH = "6d7e531782136056d61638c13f43afc1c9e2989c"
+    GIT_COMMIT_HASH = "ef52800bae6d53afb36e59f30d6eca4ea74ea240"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -69,7 +69,7 @@ You should have received a copy of the GNU General Public License along with the
         Kaiju Method
         :param params: instance of type "KaijuInputParams" (Kaiju App Input
            Params) -> structure: parameter "workspace_name" of type
-           "workspace_name" (** The workspace object refs are of form: ** **
+           "workspace_name" (** The workspace object refs are of form: ** ** 
            objects = ws.get_objects([{'ref':
            params['workspace_id']+'/'+params['obj_name']}]) ** ** "ref" means
            the entire name combining the workspace id and the object name **
