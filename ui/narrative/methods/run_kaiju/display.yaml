@@ -153,12 +153,14 @@ description : |
   <p><b>Notes</b></p>
   <p>
     <ul>
+      <li>The summary table of taxon abundances now offers both one with the long tail of low abundance taxa collapsed into one grouping, as well as a table file with the long tail unmerged.  This latter file is available in the kaiju_summaries.zip downloadable archive and can be identified with the addition to the summary file name of "-longtail".  Plots are still generated from the collapsed longtail to limit excessive taxa display and avoid breaking plot.</li>
+      <li><b>Kaiju v1.9.0 updates</b>: the default mode is now greedy.  If you wish to run "-a mem" mode this must be specified (but you cannot specify "-a greedy" on the command line).  Default values for thresholds have changed for greedy mode to -e max_mismatches=3, -s min_match_score=65, and -E max_e-value=0.01.</li>
       <li><b>Kaiju v1.7.2 updates</b>: flags -i and -j now required to run kaiju binary; kaijuReport renamed to kaiju2table</li>
       <li><b>Krona Snapshots</b>: It may be that you will not be able to take a snapshot of the Krona plot. This is a <a href=”https://github.com/marbl/Krona/issues/83”>known issue with Krona</a> for some versions of Chrome and Firefox on Windows 7 and 10. To remedy this, we suggest trying it with a different browser.</li>
     </ul>
   </p>
 
-  <p><strong>Team members who wrapped the app for KBase:</strong> Dylan Chivian (lead), Sean Jungbluth. For questions, please <a href=”https://www.kbase.us/support/”>use the Help Board</a>.</p>
+  <p><strong>Team members who wrapped the app for KBase:</strong> <a href="https://narrative.kbase.us/#people/dylan">Dylan Chivian</a> (lead), <a href="https://narrative.kbase.us/#people/seanjungbluth">Sean Jungbluth</a>. For questions, please <a href=”https://www.kbase.us/support/”>use the Help Board</a>.</p>
 
 publications :
     -
