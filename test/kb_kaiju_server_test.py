@@ -240,7 +240,7 @@ class kb_kaijuTest(unittest.TestCase):
     ### Test 1: PE lib objects
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_1_kaiju_PE_lib")
+    @unittest.skip("skipped test_1_kaiju_PE_lib")
     def test_1_kaiju_PE_lib(self):
         self._print_test_name("test_1_kaiju_PE_lib")
 
@@ -292,7 +292,7 @@ class kb_kaijuTest(unittest.TestCase):
     ### Test 1b: PE lib objects - mem mode
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_1b_kaiju_PE_lib")
+    @unittest.skip("skipped test_1b_kaiju_PE_lib")
     def test_1b_kaiju_PE_lib_mem_mode(self):
         self._print_test_name('test_1b_kaiju_PE_lib_mem_mode')
 
@@ -344,7 +344,7 @@ class kb_kaijuTest(unittest.TestCase):
     ### Test 2: SE lib object
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_2_kaiju_SE_lib")
+    @unittest.skip("skipped test_2_kaiju_SE_lib")
     def test_2_kaiju_SE_lib(self):
         self._print_test_name('test_2_kaiju_SE_lib')
 
@@ -396,7 +396,7 @@ class kb_kaijuTest(unittest.TestCase):
     ### Test 2b: SE lib object - mem mode
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_2b_kaiju_SE_lib_mem_mode")
+    @unittest.skip("skipped test_2b_kaiju_SE_lib_mem_mode")
     def test_2b_kaiju_SE_lib_mem_mode(self):
         self._print_test_name('test_2b_kaiju_SE_lib_mem_mode')
 
@@ -479,7 +479,7 @@ class kb_kaijuTest(unittest.TestCase):
     ### Test 3d: PE lib objects with PLASMIDS
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_3d_kaiju_PE_lib_PLASMIDS")
+    @unittest.skip("skipped test_3d_kaiju_PE_lib_PLASMIDS")
     def test_3d_kaiju_PE_lib_PLASMIDS(self):
         self._print_test_name('test_3d_kaiju_PE_lib_PLASMIDS')
         self._run_test_3_for_db ('plasmids')
@@ -497,7 +497,7 @@ class kb_kaijuTest(unittest.TestCase):
     ### Test 3f: PE lib objects with VIRUSES
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_3f_kaiju_PE_lib_VIRUSES")
+    @unittest.skip("skipped test_3f_kaiju_PE_lib_VIRUSES")
     def test_3f_kaiju_PE_lib_VIRUSES(self):
         self._print_test_name('test_3f_kaiju_PE_lib_VIRUSES')
         self._run_test_3_for_db ('viruses')
@@ -506,7 +506,7 @@ class kb_kaijuTest(unittest.TestCase):
     ### Test 3g: PE lib objects with FUNGI
     #
     # Uncomment to skip this test
-    # HIDE @unittest.skip("skipped test_3g_kaiju_PE_lib_FUNGI")
+    @unittest.skip("skipped test_3g_kaiju_PE_lib_FUNGI")
     def test_3g_kaiju_PE_lib_FUNGI(self):
         self._print_test_name('test_3g_kaiju_PE_lib_FUNGI')
         self._run_test_3_for_db ('fungi')
