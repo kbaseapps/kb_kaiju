@@ -685,6 +685,8 @@ class KaijuUtil:
             command_list.append('-u')
         if int(options.get('full_tax_path')) == 1:
             command_list.append('-p')
+        if options.get('db_type') == 'viruses' or options.get('db_type') == 'rvdb':
+            command_list.append('-e')
         if options.get('in_folder'):
             in_file = options['input_item']['name']+'.kaiju'
             in_path = os.path.join(options['in_folder'], in_file)
