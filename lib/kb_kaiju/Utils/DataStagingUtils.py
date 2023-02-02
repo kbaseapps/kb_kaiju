@@ -401,6 +401,8 @@ class DataStagingUtils(object):
                             if capture_type_paired:
                                 lib_i = paired_lib_i[last_read_id]
                                 paired_output_reads_file_handles[lib_i].writelines(rec_buf)
+                                self.log(console,"FWD_FASTQ: '"+rec_buf+"'")  # DEBUG
+            
                                 paired_cnt += 1
                                 total_paired_reads_by_set[lib_i] += 1
                                 if paired_cnt != 0 and paired_cnt % recs_beep_n == 0:
@@ -432,6 +434,7 @@ class DataStagingUtils(object):
                 if len(rec_buf) > 0:
                     if capture_type_paired:
                         lib_i = paired_lib_i[last_read_id]
+                        self.log(console,"FWD_FASTQ: '"+rec_buf+"'")  # DEBUG
                         paired_output_reads_file_handles[lib_i].writelines(rec_buf)
                         paired_cnt += 1
                         if paired_cnt != 0 and paired_cnt % recs_beep_n == 0:
@@ -486,6 +489,7 @@ class DataStagingUtils(object):
                         if last_read_id != None:
                             if capture_type_paired:
                                 lib_i = paired_lib_i[last_read_id]
+                                self.log(console,"REV_FASTQ: '"+rec_buf+"'")  # DEBUG
                                 paired_output_reads_file_handles[lib_i].writelines(rec_buf)
                                 paired_cnt += 1
                                 if paired_cnt != 0 and paired_cnt % recs_beep_n == 0:
@@ -517,6 +521,7 @@ class DataStagingUtils(object):
                 if len(rec_buf) > 0:
                     if capture_type_paired:
                         lib_i = paired_lib_i[last_read_id]
+                        self.log(console,"REV_FASTQ: '"+rec_buf+"'")  # DEBUG
                         paired_output_reads_file_handles[lib_i].writelines(rec_buf)
                         paired_cnt += 1
                         if paired_cnt != 0 and paired_cnt % recs_beep_n == 0:
