@@ -376,9 +376,26 @@ class DataStagingUtils(object):
                 rec_line_i = -1
                 for line in input_reads_file_handle:
                     rec_line_i += 1
-                    if rec_line_i == 3:
+
+                    if rec_line_i == 1:  # seq line
+                        rec_buf.append(line)
                         rec_line_i = -1
-                    elif rec_line_i == 0:
+                    elif rec_line_i == 3:  # qual line
+                        rec_buf.append(line)
+                        rec_line_i = -1
+                        
+                    elif rec_line_i == 2:  # delimiter line 
+                        read_id = line.rstrip('\n')
+                        read_id = line.lstrip('+')
+                        read_id = re.sub ("[ \t]+.*$", "", read_id)
+                        # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
+                        #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        if read_id.count('.') > 1:
+                            read_id = ''.join(read_id.split('.',read_id.count('.')-1))
+                        #read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
+                        rec_buf.append('+'+read_id+"\n")
+
+                    elif rec_line_i == 0:  # id line
                         if not line.startswith('@'):
                             raise ValueError ("badly formatted rec line: '"+line+"'")
                         if last_read_id != None:
@@ -399,6 +416,10 @@ class DataStagingUtils(object):
                         #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
                         if read_id.count('.') > 1:
                             read_id = ''.join(read_id.split('.',read_id.count('.')-1))
+
+                        # add row before fwd or rev tag removed
+                        rec_buf.append(read_id+"\n")  # note: includes '@'
+
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
                         last_read_id = read_id
                         try:
@@ -407,7 +428,7 @@ class DataStagingUtils(object):
                         except:
                             total_unpaired_fwd_reads += 1
                             capture_type_paired = False
-                    rec_buf.append(line)
+
                 # last rec
                 if len(rec_buf) > 0:
                     if capture_type_paired:
@@ -442,9 +463,26 @@ class DataStagingUtils(object):
                 rec_line_i = -1
                 for line in input_reads_file_handle:
                     rec_line_i += 1
-                    if rec_line_i == 3:
+
+                    if rec_line_i == 1:  # seq line
+                        rec_buf.append(line)
                         rec_line_i = -1
-                    elif rec_line_i == 0:
+                    elif rec_line_i == 3:  # qual line
+                        rec_buf.append(line)
+                        rec_line_i = -1
+                        
+                    elif rec_line_i == 2:  # delimiter line 
+                        read_id = line.rstrip('\n')
+                        read_id = line.lstrip('+')
+                        read_id = re.sub ("[ \t]+.*$", "", read_id)
+                        # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
+                        #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
+                        if read_id.count('.') > 1:
+                            read_id = ''.join(read_id.split('.',read_id.count('.')-1))
+                        #read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
+                        rec_buf.append('+'+read_id+"\n")
+
+                    elif rec_line_i == 0:  # id line
                         if not line.startswith('@'):
                             raise ValueError ("badly formatted rec line: '"+line+"'")
                         if last_read_id != None:
@@ -464,6 +502,10 @@ class DataStagingUtils(object):
                         #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
                         if read_id.count('.') > 1:
                             read_id = ''.join(read_id.split('.',read_id.count('.')-1))
+
+                        # add row before fwd or rev tag removed
+                        rec_buf.append(read_id+"\n")  # note: includes '@'
+
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
                         last_read_id = read_id
                         try:
@@ -472,7 +514,7 @@ class DataStagingUtils(object):
                         except:
                             total_unpaired_rev_reads += 1
                             capture_type_paired = False
-                    rec_buf.append(line)
+
                 # last rec
                 if len(rec_buf) > 0:
                     if capture_type_paired:
