@@ -294,7 +294,7 @@ class DataStagingUtils(object):
                         rec_line_i = -1
                     elif rec_line_i == 0:
                         if not line.startswith('@'):
-                            raise ValueError ("badly formatted rec line: '"+line+"'")
+                            raise ValueError ("A1 badly formatted rec line: '"+line+"'")
                         read_id = line.rstrip('\n')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
                         # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
@@ -320,7 +320,7 @@ class DataStagingUtils(object):
                         rec_line_i = -1
                     elif rec_line_i == 0:
                         if not line.startswith('@'):
-                            raise ValueError ("badly formatted rec line: '"+line+"'")
+                            raise ValueError ("A2 badly formatted rec line: '"+line+"'")
                         read_id = line.rstrip('\n')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
                         # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
@@ -379,7 +379,6 @@ class DataStagingUtils(object):
 
                     if rec_line_i == 1:  # seq line
                         rec_buf.append(line)
-                        rec_line_i = -1
                     elif rec_line_i == 3:  # qual line
                         rec_buf.append(line)
                         rec_line_i = -1
@@ -466,7 +465,6 @@ class DataStagingUtils(object):
 
                     if rec_line_i == 1:  # seq line
                         rec_buf.append(line)
-                        rec_line_i = -1
                     elif rec_line_i == 3:  # qual line
                         rec_buf.append(line)
                         rec_line_i = -1
