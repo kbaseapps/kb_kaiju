@@ -384,17 +384,6 @@ class DataStagingUtils(object):
                         rec_line_i = -1
                         
                     elif rec_line_i == 2:  # delimiter line 
-                        """
-                        read_id = line.rstrip('\n')
-                        read_id = line.lstrip('+')
-                        read_id = re.sub ("[ \t]+.*$", "", read_id)
-                        # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
-                        #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
-                        if read_id.count('.') > 1:
-                            read_id = ''.join(read_id.split('.',read_id.count('.')-1))
-                        read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
-                        rec_buf.append('+'+read_id+'/1'+"\n")
-                        """
                         rec_buf.append('+'+"\n")
 
                     elif rec_line_i == 0:  # id line
@@ -404,8 +393,6 @@ class DataStagingUtils(object):
                             if capture_type_paired:
                                 lib_i = paired_lib_i[last_read_id]
                                 paired_output_reads_file_handles[lib_i].writelines(rec_buf)
-                                print("FWD_FASTQ: '"+"".join(rec_buf)+"'")  # DEBUG
-            
                                 paired_cnt += 1
                                 total_paired_reads_by_set[lib_i] += 1
                                 if paired_cnt != 0 and paired_cnt % recs_beep_n == 0:
@@ -436,7 +423,6 @@ class DataStagingUtils(object):
                 if len(rec_buf) > 0:
                     if capture_type_paired:
                         lib_i = paired_lib_i[last_read_id]
-                        print("FWD_FASTQ: '"+"".join(rec_buf)+"'")  # DEBUG
                         paired_output_reads_file_handles[lib_i].writelines(rec_buf)
                         paired_cnt += 1
                         if paired_cnt != 0 and paired_cnt % recs_beep_n == 0:
@@ -475,17 +461,6 @@ class DataStagingUtils(object):
                         rec_line_i = -1
                         
                     elif rec_line_i == 2:  # delimiter line 
-                        """
-                        read_id = line.rstrip('\n')
-                        read_id = line.lstrip('+')
-                        read_id = re.sub ("[ \t]+.*$", "", read_id)
-                        # added below line to manage read_id edge case: e.g. @SRR5891520.1.1 (forward) & @SRR5891520.1.2 (reverse)
-                        #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
-                        if read_id.count('.') > 1:
-                            read_id = ''.join(read_id.split('.',read_id.count('.')-1))
-                        read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
-                        rec_buf.append('+'+read_id+'/2'+"\n")
-                        """
                         rec_buf.append('+'+"\n")
 
                     elif rec_line_i == 0:  # id line
@@ -494,7 +469,6 @@ class DataStagingUtils(object):
                         if last_read_id != None:
                             if capture_type_paired:
                                 lib_i = paired_lib_i[last_read_id]
-                                print("REV_FASTQ: '"+"".join(rec_buf)+"'")  # DEBUG
                                 paired_output_reads_file_handles[lib_i].writelines(rec_buf)
                                 paired_cnt += 1
                                 if paired_cnt != 0 and paired_cnt % recs_beep_n == 0:
@@ -525,7 +499,6 @@ class DataStagingUtils(object):
                 if len(rec_buf) > 0:
                     if capture_type_paired:
                         lib_i = paired_lib_i[last_read_id]
-                        print("REV_FASTQ: '"+"".join(rec_buf)+"'")  # DEBUG
                         paired_output_reads_file_handles[lib_i].writelines(rec_buf)
                         paired_cnt += 1
                         if paired_cnt != 0 and paired_cnt % recs_beep_n == 0:
