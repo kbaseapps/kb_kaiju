@@ -391,8 +391,8 @@ class DataStagingUtils(object):
                         #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
                         if read_id.count('.') > 1:
                             read_id = ''.join(read_id.split('.',read_id.count('.')-1))
-                        #read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
-                        rec_buf.append('+'+read_id+"\n")
+                        read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
+                        rec_buf.append('+'+read_id+'/1'+"\n")
 
                     elif rec_line_i == 0:  # id line
                         if not line.startswith('@'):
@@ -417,11 +417,10 @@ class DataStagingUtils(object):
                         #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
                         if read_id.count('.') > 1:
                             read_id = ''.join(read_id.split('.',read_id.count('.')-1))
-
-                        # add row before fwd or rev tag removed
-                        rec_buf.append(read_id+"\n")  # note: includes '@'
-
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
+
+                        rec_buf.append(read_id+'/1'+"\n")  # note: includes '@'
+
                         last_read_id = read_id
                         try:
                             found = paired_lib_i[read_id]
@@ -480,8 +479,8 @@ class DataStagingUtils(object):
                         #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
                         if read_id.count('.') > 1:
                             read_id = ''.join(read_id.split('.',read_id.count('.')-1))
-                        #read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
-                        rec_buf.append('+'+read_id+"\n")
+                        read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
+                        rec_buf.append('+'+read_id+'/2'+"\n")
 
                     elif rec_line_i == 0:  # id line
                         if not line.startswith('@'):
@@ -504,11 +503,10 @@ class DataStagingUtils(object):
                         #read_id = ''.join(read_id.rsplit('.',1)) # replace last '.' with ''
                         if read_id.count('.') > 1:
                             read_id = ''.join(read_id.split('.',read_id.count('.')-1))
-
-                        # add row before fwd or rev tag removed
-                        rec_buf.append(read_id+"\n")  # note: includes '@'
-
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
+
+                        rec_buf.append(read_id+'/2'+"\n")  # note: includes '@'
+
                         last_read_id = read_id
                         try:
                             found = paired_lib_i[read_id]
