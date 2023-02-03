@@ -384,6 +384,7 @@ class DataStagingUtils(object):
                         rec_line_i = -1
                         
                     elif rec_line_i == 2:  # delimiter line 
+                        """
                         read_id = line.rstrip('\n')
                         read_id = line.lstrip('+')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
@@ -393,6 +394,8 @@ class DataStagingUtils(object):
                             read_id = ''.join(read_id.split('.',read_id.count('.')-1))
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
                         rec_buf.append('+'+read_id+'/1'+"\n")
+                        """
+                        rec_buf.append('+'+"\n")
 
                     elif rec_line_i == 0:  # id line
                         if not line.startswith('@'):
@@ -472,6 +475,7 @@ class DataStagingUtils(object):
                         rec_line_i = -1
                         
                     elif rec_line_i == 2:  # delimiter line 
+                        """
                         read_id = line.rstrip('\n')
                         read_id = line.lstrip('+')
                         read_id = re.sub ("[ \t]+.*$", "", read_id)
@@ -481,6 +485,8 @@ class DataStagingUtils(object):
                             read_id = ''.join(read_id.split('.',read_id.count('.')-1))
                         read_id = re.sub ("[\/\.\_\-\:\;][012lrLRfrFR53]\'*$", "", read_id)
                         rec_buf.append('+'+read_id+'/2'+"\n")
+                        """
+                        rec_buf.append('+'+"\n")
 
                     elif rec_line_i == 0:  # id line
                         if not line.startswith('@'):
