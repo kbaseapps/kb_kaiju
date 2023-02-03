@@ -1,3 +1,7 @@
+### Version 1.3.1
+__Changes__
+- make sure subsample fastq has fixed IDs for HISEQ edge case
+
 ### Version 1.3.0
 __Changes__
 - updated Kaiju program to v1.9.0 (released 2022-05-12)
