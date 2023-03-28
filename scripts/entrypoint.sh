@@ -1,5 +1,15 @@
 #!/bin/bash
 
+progenomes_VER=2021-03-02
+nr_euk_VER=2022-03-10
+nr_VER=2022-03-10
+refseq_VER=2022-03-23
+fungi_VER=2022-03-29
+viruses_VER=2022-03-29
+plasmids_VER=2022-04-10
+rvdb_VER=2022-04-07
+
+
 . /kb/deployment/user-env.sh
 
 python ./scripts/prepare_deploy_cfg.py ./deploy.cfg ./work/config.properties
@@ -21,85 +31,85 @@ elif [ "${1}" = "init" ] ; then
   mkdir -p /data/kaijudb
   cd /data/kaijudb
 
-  echo "downloading: http://kaiju.binf.ku.dk/database/kaiju_db_refseq_2021-02-26.tgz"
+  echo "downloading: https://kaiju.binf.ku.dk/database/kaiju_db_refseq_$refseq_VER.tgz"
   mkdir -p /data/kaijudb/refseq
   cd /data/kaijudb/
-  wget -q http://kaiju.binf.ku.dk/database/kaiju_db_refseq_2021-02-26.tgz
-  tar -xzf kaiju_db_refseq_2021-02-26.tgz
+  curl -o kaiju_db_refseq_$refseq_VER.tgz https://kaiju.binf.ku.dk/database/kaiju_db_refseq_$refseq_VER.tgz
+  tar -xzf kaiju_db_refseq_$refseq_VER.tgz
   mv kaiju_db_refseq.fmi refseq/kaiju_db_refseq.fmi
   mv names.dmp refseq/names.dmp
   mv nodes.dmp refseq/nodes.dmp
-  rm kaiju_db_refseq_2021-02-26.tgz
+  rm kaiju_db_refseq_$refseq_VER.tgz
 
-  echo "downloading: http://kaiju.binf.ku.dk/database/kaiju_db_progenomes_2021-03-02.tgz"
+  echo "downloading: https://kaiju.binf.ku.dk/database/kaiju_db_progenomes_$progenomes_VER.tgz"
   mkdir -p /data/kaijudb/progenomes
   cd /data/kaijudb/
-  wget -q http://kaiju.binf.ku.dk/database/kaiju_db_progenomes_2021-03-02.tgz
-  tar -xzf kaiju_db_progenomes_2021-03-02.tgz
+  curl -o kaiju_db_progenomes_$progenomes_VER.tgz https://kaiju.binf.ku.dk/database/kaiju_db_progenomes_$progenomes_VER.tgz
+  tar -xzf kaiju_db_progenomes_$progenomes_VER.tgz
   mv kaiju_db_progenomes.fmi progenomes/kaiju_db_progenomes.fmi
   mv names.dmp progenomes/names.dmp
   mv nodes.dmp progenomes/nodes.dmp
-  rm kaiju_db_progenomes_2021-03-02.tgz
+  rm kaiju_db_progenomes_$progenomes_VER.tgz
 
-  echo "downloading: http://kaiju.binf.ku.dk/database/kaiju_db_nr_2021-02-24.tgz"
+  echo "downloading: https://kaiju.binf.ku.dk/database/kaiju_db_nr_$nr_VER.tgz"
   mkdir -p /data/kaijudb/nr
   cd /data/kaijudb/
-  wget -q http://kaiju.binf.ku.dk/database/kaiju_db_nr_2021-02-24.tgz
-  tar -xzf kaiju_db_nr_2021-02-24.tgz
+  curl -o kaiju_db_nr_$nr_VER.tgz https://kaiju.binf.ku.dk/database/kaiju_db_nr_$nr_VER.tgz
+  tar -xzf kaiju_db_nr_$nr_VER.tgz
   mv kaiju_db_nr.fmi nr/kaiju_db_nr.fmi
   mv names.dmp nr/names.dmp
   mv nodes.dmp nr/nodes.dmp
-  rm kaiju_db_nr_2021-02-24.tgz
+  rm kaiju_db_nr_$nr_VER.tgz
 
-  echo "downloading: http://kaiju.binf.ku.dk/database/kaiju_db_nr_euk_2021-02-24.tgz"
+  echo "downloading: https://kaiju.binf.ku.dk/database/kaiju_db_nr_euk_$nr_euk_VER.tgz"
   mkdir -p /data/kaijudb/nr_euk
   cd /data/kaijudb/
-  wget -q http://kaiju.binf.ku.dk/database/kaiju_db_nr_euk_2021-02-24.tgz
-  tar -xzf kaiju_db_nr_euk_2021-02-24.tgz
+  curl -o kaiju_db_nr_euk_$nr_euk_VER.tgz https://kaiju.binf.ku.dk/database/kaiju_db_nr_euk_$nr_euk_VER.tgz
+  tar -xzf kaiju_db_nr_euk_$nr_euk_VER.tgz
   mv kaiju_db_nr_euk.fmi nr_euk/kaiju_db_nr_euk.fmi
   mv names.dmp nr_euk/names.dmp
   mv nodes.dmp nr_euk/nodes.dmp
-  rm kaiju_db_nr_euk_2021-02-24.tgz
+  rm kaiju_db_nr_euk_$nr_euk_VER.tgz
 
-  echo "downloading: http://kaiju.binf.ku.dk/database/kaiju_db_viruses_2021-02-24.tgz"
+  echo "downloading: https://kaiju.binf.ku.dk/database/kaiju_db_viruses_$viruses_VER.tgz"
   mkdir -p /data/kaijudb/viruses
   cd /data/kaijudb/
-  wget -q http://kaiju.binf.ku.dk/database/kaiju_db_viruses_2021-02-24.tgz
-  tar -xzf kaiju_db_viruses_2021-02-24.tgz
+  curl -o kaiju_db_viruses_$viruses_VER.tgz https://kaiju.binf.ku.dk/database/kaiju_db_viruses_$viruses_VER.tgz
+  tar -xzf kaiju_db_viruses_$viruses_VER.tgz
   mv kaiju_db_viruses.fmi viruses/kaiju_db_viruses.fmi
   mv names.dmp viruses/names.dmp
   mv nodes.dmp viruses/nodes.dmp
-  rm kaiju_db_viruses_2021-02-24.tgz
+  rm kaiju_db_viruses_$viruses_VER.tgz
 
-  echo "downloading: http://kaiju.binf.ku.dk/database/kaiju_db_plasmids_2021-03-05.tgz"
+  echo "downloading: https://kaiju.binf.ku.dk/database/kaiju_db_plasmids_$plasmids_VER.tgz"
   mkdir -p /data/kaijudb/plasmids
   cd /data/kaijudb/
-  wget -q http://kaiju.binf.ku.dk/database/kaiju_db_plasmids_2021-03-05.tgz
-  tar -xzf kaiju_db_plasmids_2021-03-05.tgz
+  curl -o kaiju_db_plasmids_$plasmids_VER.tgz https://kaiju.binf.ku.dk/database/kaiju_db_plasmids_$plasmids_VER.tgz
+  tar -xzf kaiju_db_plasmids_$plasmids_VER.tgz
   mv kaiju_db_plasmids.fmi plasmids/kaiju_db_plasmids.fmi
   mv names.dmp plasmids/names.dmp
   mv nodes.dmp plasmids/nodes.dmp
-  rm kaiju_db_plasmids_2021-03-05.tgz
+  rm kaiju_db_plasmids_$plasmids_VER.tgz
 
-  echo "downloading: http://kaiju.binf.ku.dk/database/kaiju_db_rvdb_2021-03-05.tgz"
+  echo "downloading: https://kaiju.binf.ku.dk/database/kaiju_db_rvdb_$rvdb_VER.tgz"
   mkdir -p /data/kaijudb/rvdb
   cd /data/kaijudb/
-  wget -q http://kaiju.binf.ku.dk/database/kaiju_db_rvdb_2021-03-05.tgz
-  tar -xzf kaiju_db_rvdb_2021-03-05.tgz
+  curl -o kaiju_db_rvdb_$rvdb_VER.tgz https://kaiju.binf.ku.dk/database/kaiju_db_rvdb_$rvdb_VER.tgz
+  tar -xzf kaiju_db_rvdb_$rvdb_VER.tgz
   mv kaiju_db_rvdb.fmi rvdb/kaiju_db_rvdb.fmi
   mv names.dmp rvdb/names.dmp
   mv nodes.dmp rvdb/nodes.dmp
-  rm kaiju_db_rvdb_2021-03-05.tgz
+  rm kaiju_db_rvdb_$rvdb_VER.tgz
 
-  echo "downloading: http://kaiju.binf.ku.dk/database/kaiju_db_fungi_2021-03-04.tgz"
+  echo "downloading: https://kaiju.binf.ku.dk/database/kaiju_db_fungi_$fungi_VER.tgz"
   mkdir -p /data/kaijudb/fungi
   cd /data/kaijudb/
-  wget -q http://kaiju.binf.ku.dk/database/kaiju_db_fungi_2021-03-04.tgz
-  tar -xzf kaiju_db_fungi_2021-03-04.tgz
+  curl -o kaiju_db_fungi_$fungi_VER.tgz https://kaiju.binf.ku.dk/database/kaiju_db_fungi_$fungi_VER.tgz
+  tar -xzf kaiju_db_fungi_$fungi_VER.tgz
   mv kaiju_db_fungi.fmi fungi/kaiju_db_fungi.fmi
   mv names.dmp fungi/names.dmp
   mv nodes.dmp fungi/nodes.dmp
-  rm kaiju_db_fungi_2021-03-04.tgz
+  rm kaiju_db_fungi_$fungi_VER.tgz
 
   cd /data/kaijudb
 

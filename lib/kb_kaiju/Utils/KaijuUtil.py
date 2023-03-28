@@ -388,11 +388,18 @@ class KaijuUtil:
                 single_kaijuReport_run_options['tax_level'] = tax_level
 
                 log_output_file = None
+                log_longtail_output_file = None
                 if dropOutput:  # if output is too chatty for STDOUT
                     log_output_file = os.path.join(self.scratch, input_reads_item['name'] + '.kaijuReport' + '.stdout')
+                    log_longtail_output_file = os.path.join(self.scratch, input_reads_item['name'] + '.kaijuReport' + '-longtail' + '.stdout')
 
-                command = self._build_kaijuReport_command(single_kaijuReport_run_options)
+                # collapse long tail
+                command = self._build_kaijuReport_command(single_kaijuReport_run_options, longtail=False)
                 self.run_proc (command, log_output_file)
+
+                # keep long tail
+                command = self._build_kaijuReport_command(single_kaijuReport_run_options, longtail=True)
+                self.run_proc (command, log_longtail_output_file)
 
 
     def run_kaijuReportPlots_batch(self, options):
@@ -569,15 +576,19 @@ class KaijuUtil:
             command_list.append('-m')
             command_list.append(str(options.get('min_match_length')))
         if int(options.get('greedy_run_mode')) == 1:
-            command_list.append('-a')
-            command_list.append('greedy')
+            # greedy is now default and now breaks if requested explicitly
+            #command_list.append('-a')
+            #command_list.append('greedy')
             if options.get('greedy_allowed_mismatches'):
                 command_list.append('-e')
                 command_list.append(str(options.get('greedy_allowed_mismatches')))
             if options.get('greedy_min_match_score'):
                 command_list.append('-s')
                 command_list.append(str(options.get('greedy_min_match_score')))
-
+        else:
+            command_list.append('-a')
+            command_list.append('mem')
+                
         if options.get('threads'):
             command_list.append('-z')
             command_list.append(str(options.get('threads')))
@@ -649,7 +660,7 @@ class KaijuUtil:
             raise ValueError ('missing or empty '+DB+' file: '+options[DB])
 
 
-    def _process_kaijuReport_options(self, command_list, options):
+    def _process_kaijuReport_options(self, command_list, options, longtail=False):
         if options.get('KAIJU_DB_NODES'):
             command_list.append('-t')
             command_list.append(str(options.get('KAIJU_DB_NODES')))
@@ -660,23 +671,28 @@ class KaijuUtil:
             command_list.append('-r')
             command_list.append(str(options.get('tax_level')))
         if options.get('out_folder'):
-            out_file = options['input_item']['name']+'-'+str(options.get('tax_level'))+'.kaijuReport'
+            out_file = options['input_item']['name']+'-'+str(options.get('tax_level'))
+            if longtail:
+                out_file += '-longtail'
+            out_file += '.kaijuReport'
             out_path = os.path.join (str(options.get('out_folder')), out_file)
             command_list.append('-o')
             command_list.append(out_path)
-        if options.get('filter_percent'):
+        if not longtail and options.get('filter_percent'):
             command_list.append('-m')
             command_list.append(str(options.get('filter_percent')))
         if int(options.get('filter_unclassified')) == 1:
             command_list.append('-u')
         if int(options.get('full_tax_path')) == 1:
             command_list.append('-p')
+        if options.get('db_type') == 'viruses' or options.get('db_type') == 'rvdb':
+            command_list.append('-e')
         if options.get('in_folder'):
             in_file = options['input_item']['name']+'.kaiju'
             in_path = os.path.join(options['in_folder'], in_file)
             command_list.append(in_path)
 
-    def _build_kaijuReport_command(self, options):
+    def _build_kaijuReport_command(self, options, longtail=False):
         KAIJU_BIN_DIR    = os.path.join(os.path.sep, 'kb', 'module', 'kaiju', 'bin')
         KAIJU_REPORT_BIN = os.path.join(KAIJU_BIN_DIR, 'kaiju2table')
         KAIJU_DB_DIR     = os.path.join(os.path.sep, 'data', 'kaijudb', options['db_type'])
@@ -686,7 +702,7 @@ class KaijuUtil:
 
         self._validate_kaijuReport_options(options)
         command = [KAIJU_REPORT_BIN]
-        self._process_kaijuReport_options(command, options)
+        self._process_kaijuReport_options(command, options, longtail=longtail)
         return command
 
 

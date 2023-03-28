@@ -7,7 +7,13 @@ MAINTAINER KBase Developer
 # installation scripts.
 
 # Update
-#RUN apt-get update
+RUN apt-get update
+
+# udpate certs
+RUN apt-get upgrade -y
+RUN sed -i 's/\(.*DST_Root_CA_X3.crt\)/!\1/' /etc/ca-certificates.conf
+RUN update-ca-certificates
+
 
 # Here we install a python coverage tool and an
 # https library that is out of date in the base image.
@@ -23,7 +29,7 @@ RUN apt-get update && \
 # For kaiju bin
 WORKDIR /kb/module
 RUN \
-    git clone https://github.com/bioinformatics-centre/kaiju.git && \
+    git clone --single-branch --depth 1 --branch v1.9.0 https://github.com/bioinformatics-centre/kaiju.git && \
     cd kaiju/src && \
     make
 
