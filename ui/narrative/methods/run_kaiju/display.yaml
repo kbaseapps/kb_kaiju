@@ -164,6 +164,12 @@ description : |
 
 publications :
     -
+        pmid: 36376589
+        display-text : |
+            Chivian D, et al. Metagenome-assembled genome extraction and analysis from microbiomes using KBase. Nat Protoc. 2023 Jan;18(1):208-238. doi: 10.1038/s41596-022-00747-x
+        link: https://pubmed.ncbi.nlm.nih.gov/36376589
+
+    -
         pmid: 27071849
         display-text : |
             Menzel P, Ng KL, Krogh A. Fast and sensitive taxonomic classification for metagenomics with Kaiju. Nat Commun. 2016;7: 11257. doi:10.1038/ncomms11257
