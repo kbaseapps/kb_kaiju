@@ -147,6 +147,7 @@ class KaijuUtil:
                                     'in_folder':                     kaijuReport_output_folder,
                                     'stacked_bar_plots_out_folder':  kaijuReport_StackedBarPlots_output_folder,
                                     #'per_sample_plots_out_folder':   kaijuReport_PerSamplePlots_output_folder,
+                                    'db_type':                       params['db_type'],
                                     'tax_levels':                    params['tax_levels'],
                                     'sort_taxa_by':                  params['sort_taxa_by']
                                     #'filter_percent':            params['filter_percent'],
@@ -164,6 +165,7 @@ class KaijuUtil:
                                         'stacked_bar_plot_files':  kaijuReport_plot_files['stacked_bar_plot_files'],
                                         #'per_sample_plot_files':   kaijuReport_plot_files['per_sample_plot_files'],
                                         'out_folder':              html_dir,
+                                        'db_type':                 params['db_type'],
                                         'tax_levels':              params['tax_levels']
         }
         if build_area_plots_flag:
