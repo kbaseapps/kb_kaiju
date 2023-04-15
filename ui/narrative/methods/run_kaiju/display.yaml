@@ -92,19 +92,19 @@ parameters :
         ui-name : |
             Greedy Max Mismatches
         short-hint : |
-            Greedy (imperfect) match maximum mismatches (default is 5).
+            Greedy (imperfect) match maximum mismatches (default is 3 - used to be 5).
 
     greedy_min_match_score :
         ui-name : |
             Greedy Min Bitscore
         short-hint : |
-            Greedy (imperfect) match minimum bitscore (default is 75).
+            Greedy (imperfect) match minimum bitscore (default is 65 - used to be 75).
 
     greedy_max_e_value :
         ui-name : |
             Greedy Max E-value
         short-hint : |
-            Greedy (imperfect) match maximum e-value (default is 0.05).
+            Greedy (imperfect) match maximum e-value (default is 0.01 - used to be 0.05).
 
     sort_taxa_by :
         ui-name : |
