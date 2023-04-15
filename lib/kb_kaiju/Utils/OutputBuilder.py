@@ -788,6 +788,10 @@ class OutputBuilder(object):
         r = random.random()
         shuffle(color_names, lambda: r)
         for label_i,label in enumerate(element_labels):
+            # debug
+            if label == 'Thermodesulfobacterium':
+                self.log(console, "DEBUG: color is {}".format(color_names[label_i % len_color_names]))
+
             if label_i >= len_color_names:
                 color_names.append(color_names[label_i % len_color_names])
             if label.startswith('tail (<'):
