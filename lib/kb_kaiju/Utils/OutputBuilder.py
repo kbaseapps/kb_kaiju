@@ -352,6 +352,10 @@ class OutputBuilder(object):
                     abundance_matrix[lineage_i].append(0.0)
 
         # make plots
+        this_title = tax_level
+        if options['ref_db_virus']:
+            title = 'Viruses'
+            
         if options['plot_type'] == 'bar':
             basename_ext = '-stacked_bar_plot'
             return self._create_bar_plots (out_folder = options['stacked_plots_out_folder'],
@@ -359,7 +363,7 @@ class OutputBuilder(object):
                                            vals = abundance_matrix,
                                            frac_vals = classified_frac,
                                            #title = tax_level.title()+' Level',
-                                           title = tax_level.title(),
+                                           title = this_title.title(),
                                            frac_y_label = 'fraction classified',
                                            y_label = 'percent of classified reads',
                                            sample_labels = sample_order,
@@ -372,7 +376,7 @@ class OutputBuilder(object):
                                            vals = abundance_matrix,
                                            frac_vals = classified_frac,
                                            #title = tax_level.title()+' Level',
-                                           title = tax_level.title(),
+                                           title = this_title.title(),
                                            frac_y_label = 'fraction classified',
                                            y_label = 'percent of classified reads',
                                            sample_labels = sample_order,

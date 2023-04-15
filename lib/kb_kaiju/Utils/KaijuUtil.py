@@ -408,7 +408,14 @@ class KaijuUtil:
         stacked_bar_plot_files  = dict()
         stacked_area_plot_files = dict()
 
-        for tax_level in options['tax_levels']:
+        virus_plot_flag = False
+        plot_tax_levels = options['tax_levels']
+        if options['db_type'] == 'viruses':
+            plot_tax_levels = [options['tax_levels'][0]]
+            virus_plot_flag = True
+            
+        # make plots
+        for tax_level in plot_tax_levels:
 
             # per sample plots
             if 'per_sample_plots_out_folder' in options:
@@ -417,7 +424,7 @@ class KaijuUtil:
                     single_kaijuReportPlots_options = options
                     single_kaijuReportPlots_options['input_item'] = input_reads_item
                     single_kaijuReportPlots_options['tax_level'] = tax_level
-
+                    
                     per_sample_plot_files[tax_level][input_reads['name']] = self.outputBuilder_client.generate_kaijuReport_PerSamplePlots(single_kaijuReportPlots_options)
 
             # stacked bar plots
@@ -426,6 +433,7 @@ class KaijuUtil:
                 kaijuReportPlots_options['stacked_plots_out_folder'] = options['stacked_bar_plots_out_folder']
                 kaijuReportPlots_options['tax_level'] = tax_level
                 kaijuReportPlots_options['plot_type'] = 'bar'
+                kaijuReportPlots_options['ref_db_virus'] = virus_plot_flag
                 stacked_bar_plot_files[tax_level] = self.outputBuilder_client.generate_kaijuReport_StackedPlots(kaijuReportPlots_options)
 
             # stacked area plots
@@ -446,13 +454,17 @@ class KaijuUtil:
         out_html_folder = options['out_folder']
         out_html_files = dict()
 
+        plot_tax_levels = options['tax_levels']
+        if options['db_type'] == 'viruses':
+            plot_tax_levels = [options['tax_levels'][0]]
+        
         if 'stacked_bar_plot_files' in options:
             out_html_files['bar'] = self.outputBuilder_client.build_html_for_kaijuReport_StackedPlots(
                 options['input_reads'],
                 options['summary_folder'],
                 out_html_folder,
                 'bar',
-                options['tax_levels'],
+                plot_tax_levels,
                 options['stacked_bar_plot_files']
             )
 
@@ -462,7 +474,7 @@ class KaijuUtil:
                 options['summary_folder'],
                 out_html_folder,
                 'area',
-                options['tax_levels'],
+                plot_tax_levels,
                 options['stacked_area_plot_files']
             )
 
