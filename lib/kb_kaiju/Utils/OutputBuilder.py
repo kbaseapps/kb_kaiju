@@ -331,10 +331,12 @@ class OutputBuilder(object):
             for lineage_name in this_lineage_order:
                 if lineage_name not in lineage_seen:
                     lineage_seen[lineage_name] = True
-                    if lineage_name.startswith('tail (<') \
-                       or lineage_name.startswith('viruses') \
-                       or lineage_name.startswith('unassigned at'):
+                    if lineage_name.startswith('tail (<'):
                         extra_bucket_order.append(lineage_name)
+                    elif lineage_name.startswith('viruses') \
+                         or lineage_name.startswith('unassigned at'):
+                        if not options['ref_db_virus']:
+                            extra_bucket_order.append(lineage_name)
                     else:
                         lineage_order.append(lineage_name)
             abundance_by_sample.append(this_abundance)
@@ -354,7 +356,7 @@ class OutputBuilder(object):
         # make plots
         this_title = tax_level
         if options['ref_db_virus']:
-            title = 'Viruses'
+            this_title = 'Viruses'
             
         if options['plot_type'] == 'bar':
             basename_ext = '-stacked_bar_plot'
