@@ -412,7 +412,7 @@ class KaijuUtil:
 
         virus_plot_flag = False
         plot_tax_levels = options['tax_levels']
-        if options['db_type'] == 'viruses':
+        if options['db_type'] == 'viruses' or options['dv_type'] == 'rvdb':
             plot_tax_levels = [options['tax_levels'][0]]
             virus_plot_flag = True
             
@@ -457,7 +457,7 @@ class KaijuUtil:
         out_html_files = dict()
 
         plot_tax_levels = options['tax_levels']
-        if options['db_type'] == 'viruses':
+        if options['db_type'] == 'viruses' or options['db_type'] == 'rvdb':
             plot_tax_levels = [options['tax_levels'][0]]
         
         if 'stacked_bar_plot_files' in options:
