@@ -412,7 +412,7 @@ class KaijuUtil:
 
         virus_plot_flag = False
         plot_tax_levels = options['tax_levels']
-        if options['db_type'] == 'viruses' or options['dv_type'] == 'rvdb':
+        if options['db_type'] == 'viruses' or options['db_type'] == 'rvdb':
             plot_tax_levels = [options['tax_levels'][0]]
             virus_plot_flag = True
             
@@ -794,7 +794,7 @@ class KaijuUtil:
         # input file validation
         in_file = os.path.join(options['out_folder'], options['input_item']['name']+'.krona')
         if not os.path.getsize(in_file) > 0:
-            raise ValueError ('missing or empty krona input file (your filters may be too strict): {}'.format(in_file))
+            raise ValueError ('missing or empty krona input file (your filters may be too strict. try not subsampling.): {}'.format(in_file))
 
 
     def _process_kronaImport_options(self, command_list, options):
