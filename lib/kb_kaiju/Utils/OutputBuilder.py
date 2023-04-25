@@ -786,6 +786,13 @@ class OutputBuilder(object):
         # number of samples
         N = len(sample_labels)
 
+        # extra categories
+        N_extra_cats = 0
+        for label in element_labels:
+            if label.startswith('tail (<') \
+               or label.startswith('viruses') \
+               or label.startswith('unassigned at'):
+                N_extra_cats += 1
 
         # colors
         color_names = self.no_light_color_names
@@ -871,9 +878,12 @@ class OutputBuilder(object):
             element_labels = new_element_labels
 
 
-        # reverse so that most important plots near top (below special 3 categories)
-        element_labels = element_labels[-4::-1] + element_labels[-3:]
-        vals = vals[-4::-1] + vals[-3:]
+        # reverse so that most important plots near top (below special [usually 3] categories)
+        element_labels = element_labels[(-N_extra_cats-1)::-1]
+        vals = vals[(-N_extra_cats-1)::-1]
+        if N_extra_cats > 0:
+            element_labels += element_labels[-N_extra_cats:]
+            vals += vals[-N_extra_cats:]
 
 
         # plot dimensions
