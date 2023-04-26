@@ -882,6 +882,7 @@ class OutputBuilder(object):
         element_labels = element_labels[(-N_extra_cats-1)::-1]
         vals = vals[(-N_extra_cats-1)::-1]
         if N_extra_cats > 0:
+            print ("EXTRA CATS HI {}".format(N_extra_cats))
             element_labels += element_labels[-N_extra_cats:]
             vals += vals[-N_extra_cats:]
 
