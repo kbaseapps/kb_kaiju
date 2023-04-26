@@ -1000,9 +1000,7 @@ class OutputBuilder(object):
         last_bottom = None
         p = []
         for vec_i,val_vec in enumerate(np_vals):
-
-            print ("COLOR {}: {}".format(vec_i, color_names[vec_i]))  # DEBUG
-            
+            #print ("COLOR {}: {}".format(vec_i, color_names[vec_i]))  # DEBUG
             if vec_i == 0:
                 this_bottom = 0
                 last_bottom = val_vec
