@@ -76,7 +76,7 @@ class OutputBuilder(object):
             'darkkhaki',
             'darkmagenta',
             'darkolivegreen',
-            # 'darkorange',  # showing up gray for some reason, so removing it
+            'darkorange',
             'darkorchid',
             'darkred',
             'darksalmon',
@@ -89,7 +89,7 @@ class OutputBuilder(object):
             'deepskyblue',
             'dodgerblue',
             'firebrick',
-            #'forestgreen',  # showing up gray for some reason, so removing it
+            'forestgreen',
             'fuchsia',
             #'gainsboro',
             'gold',
