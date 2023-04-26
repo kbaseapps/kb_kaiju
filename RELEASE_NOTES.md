@@ -1,3 +1,8 @@
+### Version 1.3.3
+__Changes__
+- made viral plots more tailored to analysis output
+- fixed bug with barplot colors
+
 ### Version 1.3.2
 __Changes__
 - made long tail report download available that doesn't pool tail for plotting

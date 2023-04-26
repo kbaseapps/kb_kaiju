@@ -46,9 +46,9 @@ You should have received a copy of the GNU General Public License along with the
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "1.3.0"
+    VERSION = "1.3.3"
     GIT_URL = "https://github.com/kbaseapps/kb_kaiju"
-    GIT_COMMIT_HASH = "ef52800bae6d53afb36e59f30d6eca4ea74ea240"
+    GIT_COMMIT_HASH = "10ee26c13637ff7ff6c4653023e75f05c0ef6f97"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
