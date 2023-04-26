@@ -879,13 +879,14 @@ class OutputBuilder(object):
 
 
         # reverse so that most important plots near top (below special [usually 3] categories)
-        element_labels = element_labels[(-N_extra_cats-1)::-1]
-        vals = vals[(-N_extra_cats-1)::-1]
+        new_element_labels = element_labels[(-N_extra_cats-1)::-1]
+        new_vals = vals[(-N_extra_cats-1)::-1]
         if N_extra_cats > 0:
-            print ("EXTRA CATS HI {}".format(N_extra_cats))
-            element_labels += element_labels[-N_extra_cats:]
-            vals += vals[-N_extra_cats:]
-
+            new_element_labels += element_labels[-N_extra_cats:]
+            new_vals += vals[-N_extra_cats:]
+        element_labels = new_element_labels
+        vals = new_vals
+            
 
         # plot dimensions
         #per_unit_to_inch_scale = 0.25
