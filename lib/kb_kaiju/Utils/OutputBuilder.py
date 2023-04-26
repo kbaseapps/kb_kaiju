@@ -799,18 +799,18 @@ class OutputBuilder(object):
                 N_extra_cats += 1
 
         # colors
-        color_names = self.no_light_color_names
-        len_color_names = len(color_names)
+        src_color_names = self.no_light_color_names
+        len_color_names = len(src_color_names)
         random.seed(a=len(element_labels))
         r = random.random()
-        shuffle(color_names, lambda: r)
+        shuffle(src_color_names, lambda: r)
+        color_names = []
         for label_i,label in enumerate(element_labels):
-            # debug
-            if label == 'Thermodesulfobacterium' or label == 'Desulfofarcimen':
-                print("DEBUG: color for {} is {}".format(label,color_names[label_i % len_color_names]))
-
             if label_i >= len_color_names:
-                color_names.append(color_names[label_i % len_color_names])
+                color_names.append(src_color_names[label_i % len_color_names])
+            else:
+                color_names.append(src_color_names[label_i])
+                
             if label.startswith('tail (<'):
                 color_names[label_i] = 'lightslategray'
             elif label.startswith('viruses'):
