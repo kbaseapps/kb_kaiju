@@ -332,7 +332,11 @@ class OutputBuilder(object):
                 if lineage_name not in lineage_seen:
                     lineage_seen[lineage_name] = True
                     if lineage_name.startswith('tail (<'):
-                        extra_bucket_order.append(lineage_name)
+                        if not options['ref_db_virus']:
+                            extra_bucket_order.append(lineage_name)
+                        else:
+                            new_lineage_name = re.sub (r'belong to a .* with less than ', 'belong to a viral lineage with less than ', lineage)
+                            extra_bucket_order.append(new_lineage_name)
                     elif lineage_name.startswith('viruses') \
                          or lineage_name.startswith('unassigned at'):
                         if not options['ref_db_virus']:
