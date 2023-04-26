@@ -335,7 +335,7 @@ class OutputBuilder(object):
                         if not options['ref_db_virus']:
                             extra_bucket_order.append(lineage_name)
                         else:
-                            new_lineage_name = re.sub (r'belong to a .* with less than ', 'belong to a viral lineage with less than ', lineage)
+                            new_lineage_name = re.sub (r'belong to a .* with less than ', 'belong to a viral lineage with less than ', lineage_name)
                             extra_bucket_order.append(new_lineage_name)
                     elif lineage_name.startswith('viruses') \
                          or lineage_name.startswith('unassigned at'):
