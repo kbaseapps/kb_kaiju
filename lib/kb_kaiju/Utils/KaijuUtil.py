@@ -147,6 +147,7 @@ class KaijuUtil:
                                     'in_folder':                     kaijuReport_output_folder,
                                     'stacked_bar_plots_out_folder':  kaijuReport_StackedBarPlots_output_folder,
                                     #'per_sample_plots_out_folder':   kaijuReport_PerSamplePlots_output_folder,
+                                    'db_type':                       params['db_type'],
                                     'tax_levels':                    params['tax_levels'],
                                     'sort_taxa_by':                  params['sort_taxa_by']
                                     #'filter_percent':            params['filter_percent'],
@@ -164,6 +165,7 @@ class KaijuUtil:
                                         'stacked_bar_plot_files':  kaijuReport_plot_files['stacked_bar_plot_files'],
                                         #'per_sample_plot_files':   kaijuReport_plot_files['per_sample_plot_files'],
                                         'out_folder':              html_dir,
+                                        'db_type':                 params['db_type'],
                                         'tax_levels':              params['tax_levels']
         }
         if build_area_plots_flag:
@@ -388,11 +390,18 @@ class KaijuUtil:
                 single_kaijuReport_run_options['tax_level'] = tax_level
 
                 log_output_file = None
+                log_longtail_output_file = None
                 if dropOutput:  # if output is too chatty for STDOUT
                     log_output_file = os.path.join(self.scratch, input_reads_item['name'] + '.kaijuReport' + '.stdout')
+                    log_longtail_output_file = os.path.join(self.scratch, input_reads_item['name'] + '.kaijuReport' + '-longtail' + '.stdout')
 
-                command = self._build_kaijuReport_command(single_kaijuReport_run_options)
+                # collapse long tail
+                command = self._build_kaijuReport_command(single_kaijuReport_run_options, longtail=False)
                 self.run_proc (command, log_output_file)
+
+                # keep long tail
+                command = self._build_kaijuReport_command(single_kaijuReport_run_options, longtail=True)
+                self.run_proc (command, log_longtail_output_file)
 
 
     def run_kaijuReportPlots_batch(self, options):
@@ -401,7 +410,14 @@ class KaijuUtil:
         stacked_bar_plot_files  = dict()
         stacked_area_plot_files = dict()
 
-        for tax_level in options['tax_levels']:
+        virus_plot_flag = False
+        plot_tax_levels = options['tax_levels']
+        if options['db_type'] == 'viruses' or options['db_type'] == 'rvdb':
+            plot_tax_levels = [options['tax_levels'][0]]
+            virus_plot_flag = True
+            
+        # make plots
+        for tax_level in plot_tax_levels:
 
             # per sample plots
             if 'per_sample_plots_out_folder' in options:
@@ -410,7 +426,7 @@ class KaijuUtil:
                     single_kaijuReportPlots_options = options
                     single_kaijuReportPlots_options['input_item'] = input_reads_item
                     single_kaijuReportPlots_options['tax_level'] = tax_level
-
+                    
                     per_sample_plot_files[tax_level][input_reads['name']] = self.outputBuilder_client.generate_kaijuReport_PerSamplePlots(single_kaijuReportPlots_options)
 
             # stacked bar plots
@@ -419,6 +435,7 @@ class KaijuUtil:
                 kaijuReportPlots_options['stacked_plots_out_folder'] = options['stacked_bar_plots_out_folder']
                 kaijuReportPlots_options['tax_level'] = tax_level
                 kaijuReportPlots_options['plot_type'] = 'bar'
+                kaijuReportPlots_options['ref_db_virus'] = virus_plot_flag
                 stacked_bar_plot_files[tax_level] = self.outputBuilder_client.generate_kaijuReport_StackedPlots(kaijuReportPlots_options)
 
             # stacked area plots
@@ -439,13 +456,17 @@ class KaijuUtil:
         out_html_folder = options['out_folder']
         out_html_files = dict()
 
+        plot_tax_levels = options['tax_levels']
+        if options['db_type'] == 'viruses' or options['db_type'] == 'rvdb':
+            plot_tax_levels = [options['tax_levels'][0]]
+        
         if 'stacked_bar_plot_files' in options:
             out_html_files['bar'] = self.outputBuilder_client.build_html_for_kaijuReport_StackedPlots(
                 options['input_reads'],
                 options['summary_folder'],
                 out_html_folder,
                 'bar',
-                options['tax_levels'],
+                plot_tax_levels,
                 options['stacked_bar_plot_files']
             )
 
@@ -455,7 +476,7 @@ class KaijuUtil:
                 options['summary_folder'],
                 out_html_folder,
                 'area',
-                options['tax_levels'],
+                plot_tax_levels,
                 options['stacked_area_plot_files']
             )
 
@@ -569,15 +590,19 @@ class KaijuUtil:
             command_list.append('-m')
             command_list.append(str(options.get('min_match_length')))
         if int(options.get('greedy_run_mode')) == 1:
-            command_list.append('-a')
-            command_list.append('greedy')
+            # greedy is now default and now breaks if requested explicitly
+            #command_list.append('-a')
+            #command_list.append('greedy')
             if options.get('greedy_allowed_mismatches'):
                 command_list.append('-e')
                 command_list.append(str(options.get('greedy_allowed_mismatches')))
             if options.get('greedy_min_match_score'):
                 command_list.append('-s')
                 command_list.append(str(options.get('greedy_min_match_score')))
-
+        else:
+            command_list.append('-a')
+            command_list.append('mem')
+                
         if options.get('threads'):
             command_list.append('-z')
             command_list.append(str(options.get('threads')))
@@ -649,7 +674,7 @@ class KaijuUtil:
             raise ValueError ('missing or empty '+DB+' file: '+options[DB])
 
 
-    def _process_kaijuReport_options(self, command_list, options):
+    def _process_kaijuReport_options(self, command_list, options, longtail=False):
         if options.get('KAIJU_DB_NODES'):
             command_list.append('-t')
             command_list.append(str(options.get('KAIJU_DB_NODES')))
@@ -660,23 +685,28 @@ class KaijuUtil:
             command_list.append('-r')
             command_list.append(str(options.get('tax_level')))
         if options.get('out_folder'):
-            out_file = options['input_item']['name']+'-'+str(options.get('tax_level'))+'.kaijuReport'
+            out_file = options['input_item']['name']+'-'+str(options.get('tax_level'))
+            if longtail:
+                out_file += '-longtail'
+            out_file += '.kaijuReport'
             out_path = os.path.join (str(options.get('out_folder')), out_file)
             command_list.append('-o')
             command_list.append(out_path)
-        if options.get('filter_percent'):
+        if not longtail and options.get('filter_percent'):
             command_list.append('-m')
             command_list.append(str(options.get('filter_percent')))
         if int(options.get('filter_unclassified')) == 1:
             command_list.append('-u')
         if int(options.get('full_tax_path')) == 1:
             command_list.append('-p')
+        if options.get('db_type') == 'viruses' or options.get('db_type') == 'rvdb':
+            command_list.append('-e')
         if options.get('in_folder'):
             in_file = options['input_item']['name']+'.kaiju'
             in_path = os.path.join(options['in_folder'], in_file)
             command_list.append(in_path)
 
-    def _build_kaijuReport_command(self, options):
+    def _build_kaijuReport_command(self, options, longtail=False):
         KAIJU_BIN_DIR    = os.path.join(os.path.sep, 'kb', 'module', 'kaiju', 'bin')
         KAIJU_REPORT_BIN = os.path.join(KAIJU_BIN_DIR, 'kaiju2table')
         KAIJU_DB_DIR     = os.path.join(os.path.sep, 'data', 'kaijudb', options['db_type'])
@@ -686,7 +716,7 @@ class KaijuUtil:
 
         self._validate_kaijuReport_options(options)
         command = [KAIJU_REPORT_BIN]
-        self._process_kaijuReport_options(command, options)
+        self._process_kaijuReport_options(command, options, longtail=longtail)
         return command
 
 
@@ -764,7 +794,7 @@ class KaijuUtil:
         # input file validation
         in_file = os.path.join(options['out_folder'], options['input_item']['name']+'.krona')
         if not os.path.getsize(in_file) > 0:
-            raise ValueError ('missing or empty krona input file (your filters may be too strict): {}'.format(in_file))
+            raise ValueError ('missing or empty krona input file (your filters may be too strict. try not subsampling.): {}'.format(in_file))
 
 
     def _process_kronaImport_options(self, command_list, options):

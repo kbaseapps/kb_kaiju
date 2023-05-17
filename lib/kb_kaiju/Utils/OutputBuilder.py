@@ -331,10 +331,16 @@ class OutputBuilder(object):
             for lineage_name in this_lineage_order:
                 if lineage_name not in lineage_seen:
                     lineage_seen[lineage_name] = True
-                    if lineage_name.startswith('tail (<') \
-                       or lineage_name.startswith('viruses') \
-                       or lineage_name.startswith('unassigned at'):
-                        extra_bucket_order.append(lineage_name)
+                    if lineage_name.startswith('tail (<'):
+                        if not options['ref_db_virus']:
+                            extra_bucket_order.append(lineage_name)
+                        else:
+                            new_lineage_name = re.sub (r'belong to a .* with less than ', 'belong to a viral lineage with less than ', lineage_name)
+                            extra_bucket_order.append(new_lineage_name)
+                    elif lineage_name.startswith('viruses') \
+                         or lineage_name.startswith('unassigned at'):
+                        if not options['ref_db_virus']:
+                            extra_bucket_order.append(lineage_name)
                     else:
                         lineage_order.append(lineage_name)
             abundance_by_sample.append(this_abundance)
@@ -352,6 +358,10 @@ class OutputBuilder(object):
                     abundance_matrix[lineage_i].append(0.0)
 
         # make plots
+        this_title = tax_level
+        if options['ref_db_virus']:
+            this_title = 'Viruses'
+            
         if options['plot_type'] == 'bar':
             basename_ext = '-stacked_bar_plot'
             return self._create_bar_plots (out_folder = options['stacked_plots_out_folder'],
@@ -359,7 +369,7 @@ class OutputBuilder(object):
                                            vals = abundance_matrix,
                                            frac_vals = classified_frac,
                                            #title = tax_level.title()+' Level',
-                                           title = tax_level.title(),
+                                           title = this_title.title(),
                                            frac_y_label = 'fraction classified',
                                            y_label = 'percent of classified reads',
                                            sample_labels = sample_order,
@@ -372,7 +382,7 @@ class OutputBuilder(object):
                                            vals = abundance_matrix,
                                            frac_vals = classified_frac,
                                            #title = tax_level.title()+' Level',
-                                           title = tax_level.title(),
+                                           title = this_title.title(),
                                            frac_y_label = 'fraction classified',
                                            y_label = 'percent of classified reads',
                                            sample_labels = sample_order,
@@ -780,16 +790,27 @@ class OutputBuilder(object):
         # number of samples
         N = len(sample_labels)
 
+        # extra categories
+        N_extra_cats = 0
+        for label in element_labels:
+            if label.startswith('tail (<') \
+               or label.startswith('viruses') \
+               or label.startswith('unassigned at'):
+                N_extra_cats += 1
 
         # colors
-        color_names = self.no_light_color_names
-        len_color_names = len(color_names)
+        src_color_names = self.no_light_color_names
+        len_color_names = len(src_color_names)
         random.seed(a=len(element_labels))
         r = random.random()
-        shuffle(color_names, lambda: r)
+        shuffle(src_color_names, lambda: r)
+        color_names = []
         for label_i,label in enumerate(element_labels):
             if label_i >= len_color_names:
-                color_names.append(color_names[label_i % len_color_names])
+                color_names.append(src_color_names[label_i % len_color_names])
+            else:
+                color_names.append(src_color_names[label_i])
+                
             if label.startswith('tail (<'):
                 color_names[label_i] = 'lightslategray'
             elif label.startswith('viruses'):
@@ -861,10 +882,15 @@ class OutputBuilder(object):
             element_labels = new_element_labels
 
 
-        # reverse so that most important plots near top (below special 3 categories)
-        element_labels = element_labels[-4::-1] + element_labels[-3:]
-        vals = vals[-4::-1] + vals[-3:]
-
+        # reverse so that most important plots near top (below special [usually 3] categories)
+        new_element_labels = element_labels[(-N_extra_cats-1)::-1]
+        new_vals = vals[(-N_extra_cats-1)::-1]
+        if N_extra_cats > 0:
+            new_element_labels += element_labels[-N_extra_cats:]
+            new_vals += vals[-N_extra_cats:]
+        element_labels = new_element_labels
+        vals = new_vals
+            
 
         # plot dimensions
         #per_unit_to_inch_scale = 0.25
@@ -974,6 +1000,7 @@ class OutputBuilder(object):
         last_bottom = None
         p = []
         for vec_i,val_vec in enumerate(np_vals):
+            #print ("COLOR {}: {}".format(vec_i, color_names[vec_i]))  # DEBUG
             if vec_i == 0:
                 this_bottom = 0
                 last_bottom = val_vec

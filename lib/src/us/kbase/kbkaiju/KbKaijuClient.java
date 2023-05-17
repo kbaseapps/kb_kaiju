@@ -20,7 +20,7 @@ import us.kbase.common.service.UnauthorizedException;
  * This SDK module is developed to wrap the open source package Kaiju
  * determines taxonomic structure for microbial communities from shotgun metagenomic sequence data
  * Module also utilizes Krona for visualization of results
- * References: 
+ * References:
  * Kaiju Homepage: http://kaiju.binf.ku.dk/
  * Krona Homepage: https://github.com/marbl/Krona/wiki
  * Kaiju DBs from: http://kaiju.binf.ku.dk/server
@@ -29,7 +29,7 @@ import us.kbase.common.service.UnauthorizedException;
  * Kaiju paper: Menzel, P. et al. (2016) Fast and sensitive taxonomic classification for metagenomics with Kaiju. Nat. Commun. 7:11257.
  * Krona paper: Ondov BD, Bergman NH, and Phillippy AM. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics. 2011 Sep 30; 12(1):385.
  * Kaiju License:
- * Copyright (c) 2015, 2016, 2017 Peter Menzel and Anders Krogh
+ * Copyright (c) 2015, 2016, 2017, 2018, 2019, 2020 Peter Menzel and Anders Krogh
  * Kaiju is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * Kaiju is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the file LICENSE for more details.
