@@ -1,3 +1,12 @@
+### Version 1.3.3
+__Changes__
+- made viral plots more tailored to analysis output
+- fixed bug with barplot colors
+
+### Version 1.3.2
+__Changes__
+- made long tail report download available that doesn't pool tail for plotting
+
 ### Version 1.3.1
 __Changes__
 - make sure subsample fastq has fixed IDs for HISEQ edge case
@@ -5,7 +14,7 @@ __Changes__
 ### Version 1.3.0
 __Changes__
 - updated Kaiju program to v1.9.0 (released 2022-05-12)
-1;95;0c- didn't update progenomes (ver is 2021-03-02)
+- didn't update progenomes (ver is 2021-03-02)
 - updated nr_euk refdata to 2022-03-10
 - updated nr refdata to 2022-03-10
 - updated refseq to 2022-03-23

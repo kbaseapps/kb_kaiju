@@ -92,19 +92,19 @@ parameters :
         ui-name : |
             Greedy Max Mismatches
         short-hint : |
-            Greedy (imperfect) match maximum mismatches (default is 5).
+            Greedy (imperfect) match maximum mismatches (default is 3 - used to be 5).
 
     greedy_min_match_score :
         ui-name : |
             Greedy Min Bitscore
         short-hint : |
-            Greedy (imperfect) match minimum bitscore (default is 75).
+            Greedy (imperfect) match minimum bitscore (default is 65 - used to be 75).
 
     greedy_max_e_value :
         ui-name : |
             Greedy Max E-value
         short-hint : |
-            Greedy (imperfect) match maximum e-value (default is 0.05).
+            Greedy (imperfect) match maximum e-value (default is 0.01 - used to be 0.05).
 
     sort_taxa_by :
         ui-name : |
@@ -117,7 +117,7 @@ parameters :
 # Desc
 #
 description : |
-  <p>This App makes the tool <a href="http://kaiju.binf.ku.dk/">Kaiju: Fast and sensitive taxonomic classification for metagenomics</a> available through KBase. Kaiju is written by Peter Menzel and Anders Krogh at the Bioinfomratics Centre, a part of the <a href="http://www1.bio.ku.dk/binf/" target="centre">Section for Computational and RNA Biology</a> at the <a href="http://www.ku.dk/english" target="ucop">University of Copenhagen</a>.</p>
+  <p>This App makes the tool <a href="http://kaiju.binf.ku.dk/">Kaiju: Fast and sensitive taxonomic classification for metagenomics</a> available through KBase. Kaiju is written by Peter Menzel and Anders Krogh at the Bioinformatics Centre, a part of the <a href="http://www1.bio.ku.dk/binf/" target="centre">Section for Computational and RNA Biology</a> at the <a href="http://www.ku.dk/english" target="ucop">University of Copenhagen</a>.</p>
 
   <p>From the Kaiju homepage:
     <blockquote>
@@ -153,7 +153,7 @@ description : |
   <p><b>Notes</b></p>
   <p>
     <ul>
-      <li>The summary table of taxon abundances now offers both one with the long tail of low abundance taxa collapsed into one grouping, as well as a table file with the long tail unmerged.  This latter file is available in the kaiju_summaries.zip downloadable archive and can be identified with the addition to the summary file name of "-longtail".  Plots are still generated from the collapsed longtail to limit excessive taxa display and avoid breaking plot.</li>
+      <li>The summary table of taxon abundances now offers both one with the long tail of low abundance taxa collapsed into one grouping, as well as a table file with the long tail unmerged.  This latter file is available in the kaiju_summaries.zip downloadable archive and can be identified with the addition to the summary file name of "-longtail".  Plots are still generated from the collapsed longtail to limit excessive taxa display and avoid breaking the plot.</li>
       <li><b>Kaiju v1.9.0 updates</b>: the default mode is now greedy.  If you wish to run "-a mem" mode this must be specified (but you cannot specify "-a greedy" on the command line).  Default values for thresholds have changed for greedy mode to -e max_mismatches=3, -s min_match_score=65, and -E max_e-value=0.01.</li>
       <li><b>Kaiju v1.7.2 updates</b>: flags -i and -j now required to run kaiju binary; kaijuReport renamed to kaiju2table</li>
       <li><b>Krona Snapshots</b>: It may be that you will not be able to take a snapshot of the Krona plot. This is a <a href=”https://github.com/marbl/Krona/issues/83”>known issue with Krona</a> for some versions of Chrome and Firefox on Windows 7 and 10. To remedy this, we suggest trying it with a different browser.</li>
@@ -163,6 +163,12 @@ description : |
   <p><strong>Team members who wrapped the app for KBase:</strong> <a href="https://narrative.kbase.us/#people/dylan">Dylan Chivian</a> (lead), <a href="https://narrative.kbase.us/#people/seanjungbluth">Sean Jungbluth</a>. For questions, please <a href=”https://www.kbase.us/support/”>use the Help Board</a>.</p>
 
 publications :
+    -
+        pmid: 36376589
+        display-text : |
+            Chivian D, et al. Metagenome-assembled genome extraction and analysis from microbiomes using KBase. Nat Protoc. 2023 Jan;18(1):208-238. doi: 10.1038/s41596-022-00747-x
+        link: https://pubmed.ncbi.nlm.nih.gov/36376589
+
     -
         pmid: 27071849
         display-text : |

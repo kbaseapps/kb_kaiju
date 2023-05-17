@@ -451,6 +451,7 @@ class kb_kaijuTest(unittest.TestCase):
 
     ### Test 3a: PE lib objects with NR
     #
+    # SKIP: TOO BIG FOR MEMORY
     # Uncomment to skip this test
     @unittest.skip("skipped test_3a_kaiju_PE_lib_NR")
     def test_3a_kaiju_PE_lib_NR(self):
@@ -460,6 +461,7 @@ class kb_kaijuTest(unittest.TestCase):
 
     ### Test 3b: PE lib objects with NR_EUK
     #
+    # SKIP: TOO BIG FOR MEMORY
     # Uncomment to skip this test
     @unittest.skip("skipped test_3b_kaiju_PE_lib_NR_EUK")
     def test_3b_kaiju_PE_lib_NR_EUK(self):
@@ -487,6 +489,7 @@ class kb_kaijuTest(unittest.TestCase):
 
     ### Test 3e: PE lib objects with RVDB
     #
+    # SKIP: NEEDS CORRECT QUERY DATA
     # Uncomment to skip this test
     @unittest.skip("skipped test_3e_kaiju_PE_lib_aRVDB")
     def test_3e_kaiju_PE_lib_RVDB(self):

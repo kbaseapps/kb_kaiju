@@ -147,6 +147,7 @@ class KaijuUtil:
                                     'in_folder':                     kaijuReport_output_folder,
                                     'stacked_bar_plots_out_folder':  kaijuReport_StackedBarPlots_output_folder,
                                     #'per_sample_plots_out_folder':   kaijuReport_PerSamplePlots_output_folder,
+                                    'db_type':                       params['db_type'],
                                     'tax_levels':                    params['tax_levels'],
                                     'sort_taxa_by':                  params['sort_taxa_by']
                                     #'filter_percent':            params['filter_percent'],
@@ -164,6 +165,7 @@ class KaijuUtil:
                                         'stacked_bar_plot_files':  kaijuReport_plot_files['stacked_bar_plot_files'],
                                         #'per_sample_plot_files':   kaijuReport_plot_files['per_sample_plot_files'],
                                         'out_folder':              html_dir,
+                                        'db_type':                 params['db_type'],
                                         'tax_levels':              params['tax_levels']
         }
         if build_area_plots_flag:
@@ -408,7 +410,14 @@ class KaijuUtil:
         stacked_bar_plot_files  = dict()
         stacked_area_plot_files = dict()
 
-        for tax_level in options['tax_levels']:
+        virus_plot_flag = False
+        plot_tax_levels = options['tax_levels']
+        if options['db_type'] == 'viruses' or options['db_type'] == 'rvdb':
+            plot_tax_levels = [options['tax_levels'][0]]
+            virus_plot_flag = True
+            
+        # make plots
+        for tax_level in plot_tax_levels:
 
             # per sample plots
             if 'per_sample_plots_out_folder' in options:
@@ -417,7 +426,7 @@ class KaijuUtil:
                     single_kaijuReportPlots_options = options
                     single_kaijuReportPlots_options['input_item'] = input_reads_item
                     single_kaijuReportPlots_options['tax_level'] = tax_level
-
+                    
                     per_sample_plot_files[tax_level][input_reads['name']] = self.outputBuilder_client.generate_kaijuReport_PerSamplePlots(single_kaijuReportPlots_options)
 
             # stacked bar plots
@@ -426,6 +435,7 @@ class KaijuUtil:
                 kaijuReportPlots_options['stacked_plots_out_folder'] = options['stacked_bar_plots_out_folder']
                 kaijuReportPlots_options['tax_level'] = tax_level
                 kaijuReportPlots_options['plot_type'] = 'bar'
+                kaijuReportPlots_options['ref_db_virus'] = virus_plot_flag
                 stacked_bar_plot_files[tax_level] = self.outputBuilder_client.generate_kaijuReport_StackedPlots(kaijuReportPlots_options)
 
             # stacked area plots
@@ -446,13 +456,17 @@ class KaijuUtil:
         out_html_folder = options['out_folder']
         out_html_files = dict()
 
+        plot_tax_levels = options['tax_levels']
+        if options['db_type'] == 'viruses' or options['db_type'] == 'rvdb':
+            plot_tax_levels = [options['tax_levels'][0]]
+        
         if 'stacked_bar_plot_files' in options:
             out_html_files['bar'] = self.outputBuilder_client.build_html_for_kaijuReport_StackedPlots(
                 options['input_reads'],
                 options['summary_folder'],
                 out_html_folder,
                 'bar',
-                options['tax_levels'],
+                plot_tax_levels,
                 options['stacked_bar_plot_files']
             )
 
@@ -462,7 +476,7 @@ class KaijuUtil:
                 options['summary_folder'],
                 out_html_folder,
                 'area',
-                options['tax_levels'],
+                plot_tax_levels,
                 options['stacked_area_plot_files']
             )
 
@@ -780,7 +794,7 @@ class KaijuUtil:
         # input file validation
         in_file = os.path.join(options['out_folder'], options['input_item']['name']+'.krona')
         if not os.path.getsize(in_file) > 0:
-            raise ValueError ('missing or empty krona input file (your filters may be too strict): {}'.format(in_file))
+            raise ValueError ('missing or empty krona input file (your filters may be too strict. try not subsampling.): {}'.format(in_file))
 
 
     def _process_kronaImport_options(self, command_list, options):
