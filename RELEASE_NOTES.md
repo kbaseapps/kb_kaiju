@@ -1,3 +1,7 @@
+### Version 1.3.4
+__Changes__
+- viral plots can exceed size since no tail.  Thresholded plot
+
 ### Version 1.3.3
 __Changes__
 - made viral plots more tailored to analysis output

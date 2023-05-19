@@ -413,6 +413,9 @@ class OutputBuilder(object):
 
         # copy plot imgs to html folder and add img to html page
         for tax_level in tax_levels:
+            if img_files[tax_level] is None:
+                out_html_buf.append("<p>No plot generated for tax level {}.  Please use PDF and raw data<p>".format(tax_level))
+                continue
             src_plot_file = img_files[tax_level]
             dst_local_path = os.path.join (img_local_path, plot_type+'-'+tax_level+'.PNG')
             dst_plot_file = os.path.join (out_html_folder, dst_local_path)
@@ -1090,13 +1093,22 @@ class OutputBuilder(object):
 
         # save
         img_dpi = 200
+        lower_img_dpi = 72
         #plt.show()
         log("SAVING STACKED BAR PLOT")
         png_file = out_file_basename+'.png'
         pdf_file = out_file_basename+'.pdf'
         output_png_file_path = os.path.join(out_folder, png_file);
         output_pdf_file_path = os.path.join(out_folder, pdf_file);
-        fig.savefig(output_png_file_path, dpi=img_dpi)
+        try:
+            fig.savefig(output_png_file_path, dpi=img_dpi)
+        except:
+            log("ERROR saving PNG.  Too big for canvas at {} dpi".format(img_dpi))
+            try:
+                fig.savefig(output_png_file_path, dpi=lower_img_dpi)
+            except:
+                output_png_file_path = None
+                log("ERROR saving PNG.  Too big for canvas even at lower {} dpi".format(lower_img_dpi))
         fig.savefig(output_pdf_file_path, format='pdf')
 
         return output_png_file_path
@@ -1421,18 +1433,25 @@ class OutputBuilder(object):
 
         # save
         img_dpi = 200
+        lower_img_dpi = 72
         #plt.show()
         log("SAVING STACKED AREA PLOT")
         png_file = out_file_basename+'.png'
         pdf_file = out_file_basename+'.pdf'
         output_png_file_path = os.path.join(out_folder, png_file);
         output_pdf_file_path = os.path.join(out_folder, pdf_file);
-        fig.savefig(output_png_file_path, dpi=img_dpi)
+        try:
+            fig.savefig(output_png_file_path, dpi=img_dpi)
+        except:
+            log("ERROR saving PNG.  Too big for canvas at {} dpi".format(img_dpi))
+            try:
+                fig.savefig(output_png_file_path, dpi=lower_img_dpi)
+            except:
+                output_png_file_path = None
+                log("ERROR saving PNG.  Too big for canvas even at lower {} dpi".format(lower_img_dpi))
         fig.savefig(output_pdf_file_path, format='pdf')
 
         return output_png_file_path
-
-
 
 
     def _create_area_plots_OLD (self, abundances):
