@@ -37,7 +37,7 @@ elif [ "${1}" = "init" ] ; then
   echo "downloading: https://kaiju-idx.s3.eu-central-1.amazonaws.com/${refseq_VER:0:4}/kaiju_db_refseq_$refseq_VER.tgz"
   mkdir -p /data/kaijudb/refseq
   cd /data/kaijudb/
-  curl -o -insecure kaiju_db_refseq_$refseq_VER.tgz https://kaiju-idx.s3.eu-central-1.amazonaws.com/${refseq_VER:0:4}/kaiju_db_refseq_$refseq_VER.tgz
+  curl -o kaiju_db_refseq_$refseq_VER.tgz https://kaiju-idx.s3.eu-central-1.amazonaws.com/${refseq_VER:0:4}/kaiju_db_refseq_$refseq_VER.tgz
   tar -xzf kaiju_db_refseq_$refseq_VER.tgz
   mv kaiju_db_refseq.fmi refseq/kaiju_db_refseq.fmi
   mv names.dmp refseq/names.dmp
