@@ -117,7 +117,7 @@ parameters :
 # Desc
 #
 description : |
-  <p>This App makes the tool <a href="http://kaiju.binf.ku.dk/">Kaiju: Fast and sensitive taxonomic classification for metagenomics</a> available through KBase. Kaiju is written by Peter Menzel and Anders Krogh at the Bioinformatics Centre, a part of the <a href="http://www1.bio.ku.dk/binf/" target="centre">Section for Computational and RNA Biology</a> at the <a href="http://www.ku.dk/english" target="ucop">University of Copenhagen</a>.</p>
+  <p>This App makes the tool <a href="https://github.com/bioinformatics-centre/kaiju">Kaiju: Fast and sensitive taxonomic classification for metagenomics</a> available through KBase. Kaiju is written by Peter Menzel and Anders Krogh at the Bioinformatics Centre, a part of the <a href="http://www1.bio.ku.dk/binf/" target="centre">Section for Computational and RNA Biology</a> at the <a href="http://www.ku.dk/english" target="ucop">University of Copenhagen</a>.</p>
 
   <p>From the Kaiju homepage:
     <blockquote>
@@ -133,16 +133,16 @@ description : |
     </blockquote>
   </p>
 
-  <p>Kaiju offers at least four reference databases for classification, which are downloaded from the <a href="http://kaiju.binf.ku.dk/server">Kaiju webserver page</a> (last updated early 2022). The databases are:
+  <p>Kaiju offers at least four reference databases for classification, which are downloaded from the <a href="https://bioinformatics-centre.github.io/kaiju/downloads.html">Kaiju webserver page</a> (last updated September 2025). The databases are:
     <ul>
-      <li><b>RefSeq Complete Genomes</b>: protein sequences from completely assembled bacterial, archaeal, and viral genomes from NCBI RefSeq. Updated: 23-Mar-2022.</li>
-      <li><b>proGenomes</b>: protein sequences from a representative set of genomes derived from NCBI RefSeq bacterial, archaeal, and viral genomes. Updated: 02-Mar-2021.</li>
-      <li><b>NCBI BLAST nr</b>: protein sequences from nr: Bacteria, Archaea, and Viruses. Updated: 10-Mar-2022.</li>
-      <li><b>NCBI BLAST nr+euk</b>: protein sequences from nr: Bacteria, Archaea, Viruses, Fungi and microbial eukaryotes. Updated: 10-Mar-2022.</li>
-      <li><b>Viruses</b>: protein sequences from a representative set of viral genomes. Updated: 29-Mar-2022.</li>
-      <li><b>Plasmids</b>: protein sequences from a representative set of plasmids. Updated: 10-Apr-2022.</li>
-      <li><b>Reference Viral DataBase (RVDB)</b>: protein sequences from the Reference Viral Database (RVDB). Updated: 07-Apr-2022.</li>
-      <li><b>Fungi</b>: protein sequences from a representative set of fungal genomes. Updated: 29-Mar-2022.</li>
+      <li><b>RefSeq Complete Genomes</b>: protein sequences from completely assembled bacterial, archaeal, and viral genomes from NCBI RefSeq. Updated: 2024-08-14.</li>
+      <li><b>proGenomes</b>: protein sequences from a representative set of genomes derived from NCBI RefSeq bacterial, archaeal, and viral genomes. Updated: 2023-05-25.</li>
+      <li><b>NCBI BLAST nr</b>: protein sequences from nr: Bacteria, Archaea, and Viruses. Updated: 2024-08-25.</li>
+      <li><b>NCBI BLAST nr+euk</b>: protein sequences from nr: Bacteria, Archaea, Viruses, Fungi and microbial eukaryotes. Updated: 2023-05-10.</li>
+      <li><b>Viruses</b>: protein sequences from a representative set of viral genomes. Updated: 2024-08-15.</li>
+      <li><b>Plasmids</b>: protein sequences from a representative set of plasmids. Updated: 2024-08-15.</li>
+      <li><b>Reference Viral DataBase (RVDB)</b>: protein sequences from the Reference Viral Database (RVDB). Updated: 2024-12-20.</li>
+      <li><b>Fungi</b>: protein sequences from a representative set of fungal genomes. Updated: 2024-08-16.</li>
 
     </ul>
   </p>
