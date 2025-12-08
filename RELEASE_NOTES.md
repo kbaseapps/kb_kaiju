@@ -1,3 +1,15 @@
+### Version 1.3.5
+__Changes__
+- Update databases:
+  - progenomes_VER to 2023-05-25
+  - nr_euk_VER to 2023-05-10
+  - nr_VER to 2024-08-25
+  - refseq_VER to 2024-08-14
+  - fungi_VER to 2024-08-16
+  - viruses_VER to 2024-08-15
+  - plasmids_VER to 2024-08-15
+  - rvdb_VER to 2024-12-20
+
 ### Version 1.3.4
 __Changes__
 - viral plots can exceed size since no tail.  Thresholded plot
