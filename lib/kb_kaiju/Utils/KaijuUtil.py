@@ -590,7 +590,8 @@ class KaijuUtil:
             command_list.append('-m')
             command_list.append(str(options.get('min_match_length')))
         if int(options.get('greedy_run_mode')) == 1:
-            # greedy is now default and now breaks if requested explicitly
+            # greedy is the default mode, so the flag is left off; kaiju >= 1.9.1
+            # also accepts "-a greedy" explicitly (v1.9.0 rejected it)
             #command_list.append('-a')
             #command_list.append('greedy')
             if options.get('greedy_allowed_mismatches'):
