@@ -590,16 +590,23 @@ class KaijuUtil:
             command_list.append('-m')
             command_list.append(str(options.get('min_match_length')))
         if int(options.get('greedy_run_mode')) == 1:
-            # greedy is the default mode, so the flag is left off; kaiju >= 1.9.1
-            # also accepts "-a greedy" explicitly (v1.9.0 rejected it)
-            #command_list.append('-a')
-            #command_list.append('greedy')
+            # kaiju >= 1.9.1 accepts "-a greedy" explicitly again (v1.9.0 rejected it,
+            # which is why this used to be left off).  Being explicit keeps the command
+            # matching the UI even if the upstream default mode changes again.
+            command_list.append('-a')
+            command_list.append('greedy')
             if options.get('greedy_allowed_mismatches'):
                 command_list.append('-e')
                 command_list.append(str(options.get('greedy_allowed_mismatches')))
             if options.get('greedy_min_match_score'):
                 command_list.append('-s')
                 command_list.append(str(options.get('greedy_min_match_score')))
+            # -E only applies to greedy mode.  kaiju rejects a threshold <= 0, so in that
+            # case leave the flag off and let kaiju use its own default of 0.01.  Values
+            # arrive from the Narrative as strings, so compare as a float, not for truth.
+            if options.get('greedy_max_e_value') and float(options.get('greedy_max_e_value')) > 0:
+                command_list.append('-E')
+                command_list.append(str(options.get('greedy_max_e_value')))
         else:
             command_list.append('-a')
             command_list.append('mem')
