@@ -154,7 +154,8 @@ description : |
   <p>
     <ul>
       <li>The summary table of taxon abundances now offers both one with the long tail of low abundance taxa collapsed into one grouping, as well as a table file with the long tail unmerged.  This latter file is available in the kaiju_summaries.zip downloadable archive and can be identified with the addition to the summary file name of "-longtail".  Plots are still generated from the collapsed longtail to limit excessive taxa display and avoid breaking the plot.</li>
-      <li><b>Kaiju v1.10.3 updates</b>: upstream bug fixes and additional database-building tools.  The classification and reporting behavior used by this App is unchanged from v1.9.0.</li>
+      <li><b>Kaiju v1.10.3 updates</b>: classification and reporting behavior is unchanged from v1.9.0.  "-a greedy" can be requested explicitly again, and Kaiju has added "refseq_nr" and "refseq_ref" reference databases that this App does not offer yet.</li>
+      <li><b>Greedy Max E-value fix</b>: this parameter is now actually passed to Kaiju.  In earlier versions of the App it was required but had no effect.  Its default (0.01) is also Kaiju's own default, so only runs that changed the value will give different results than before.</li>
       <li><b>Kaiju v1.9.0 updates</b>: the default mode is now greedy.  If you wish to run "-a mem" mode this must be specified.  Default values for thresholds have changed for greedy mode to -e max_mismatches=3, -s min_match_score=65, and -E max_e-value=0.01.</li>
       <li><b>Kaiju v1.7.2 updates</b>: flags -i and -j now required to run kaiju binary; kaijuReport renamed to kaiju2table</li>
       <li><b>Krona Snapshots</b>: It may be that you will not be able to take a snapshot of the Krona plot. This is a <a href=”https://github.com/marbl/Krona/issues/83”>known issue with Krona</a> for some versions of Chrome and Firefox on Windows 7 and 10. To remedy this, we suggest trying it with a different browser.</li>

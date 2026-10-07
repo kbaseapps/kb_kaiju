@@ -3,7 +3,9 @@ __Changes__
 - updated Kaiju program to v1.10.3 (released 2026-09-17) from v1.9.0
   - the kaiju, kaiju2table, and kaiju2krona options used by this App are unchanged
   - "-a greedy" is accepted again (v1.9.0 rejected it; restored upstream in v1.9.1)
-- fixed "max E-value (greedy mode)": the parameter was required and range-checked but
+  - Kaiju now also publishes "refseq_nr" and "refseq_ref" databases, which this App does
+    not offer yet (see the commented-out versions in scripts/entrypoint.sh)
+- fixed the "Greedy Max E-value" parameter: it was required and range-checked but
   never passed to kaiju, so it silently had no effect.  It is now passed as "-E".  The
   default (0.01) is kaiju's own default, so default runs are unaffected
 - the greedy run mode is now requested explicitly with "-a greedy" instead of relying on
