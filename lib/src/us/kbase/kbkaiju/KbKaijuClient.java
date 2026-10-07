@@ -21,9 +21,9 @@ import us.kbase.common.service.UnauthorizedException;
  * determines taxonomic structure for microbial communities from shotgun metagenomic sequence data
  * Module also utilizes Krona for visualization of results
  * References:
- * Kaiju Homepage: http://kaiju.binf.ku.dk/
+ * Kaiju Homepage: https://bioinformatics-centre.github.io/kaiju/
  * Krona Homepage: https://github.com/marbl/Krona/wiki
- * Kaiju DBs from: http://kaiju.binf.ku.dk/server
+ * Kaiju DBs from: https://bioinformatics-centre.github.io/kaiju/downloads.html
  * Github repo for Kaiju: https://github.com/bioinformatics-centre/kaiju
  * Github repo for Krona: https://github.com/marbl/Krona
  * Kaiju paper: Menzel, P. et al. (2016) Fast and sensitive taxonomic classification for metagenomics with Kaiju. Nat. Commun. 7:11257.
