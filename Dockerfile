@@ -29,7 +29,7 @@ RUN apt-get update && \
 # For kaiju bin
 WORKDIR /kb/module
 RUN \
-    git clone --single-branch --depth 1 --branch v1.9.0 https://github.com/bioinformatics-centre/kaiju.git && \
+    git clone --single-branch --depth 1 --branch v1.10.3 https://github.com/bioinformatics-centre/kaiju.git && \
     cd kaiju/src && \
     make
 
